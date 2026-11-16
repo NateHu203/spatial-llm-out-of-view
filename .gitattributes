@@ -1,0 +1,14 @@
+# Store every text file with LF line endings in the repository and in working copies (on every OS),
+# so that diffs never show whole-file changes caused only by Windows/Unix line endings.
+* text=auto eol=lf
+
+# Windows-only scripts keep CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# never touch binary files
+*.png binary
+*.jpg binary
+*.pdf binary
+*.pt binary
+*.npz binary

@@ -1,0 +1,289 @@
+{
+ "note": "Our numbers (2026-11-05 .. 11-09). Twin accuracy %, [95% pair-bootstrap range]; differences in points.",
+ "sources": {
+  "ladder/model_only": "pilot\\res_m_w.jsonl",
+  "ladder/A": "pilot\\res_m_r_lsq.jsonl",
+  "ladder/A+B": "pilot\\res_flow_lsq_est_dist.jsonl",
+  "ladder/A+C": "pilot\\res_m_r_ca.jsonl",
+  "ladder/A+B+C": "pilot\\res_m_r_ca_dist.jsonl",
+  "ladder/A+B+C_exact": "pilot\\res_m_r_ca_orc_dist.jsonl",
+  "calc/lsq_est": "pilot\\calc_ladder.json",
+  "calc/ca_est": "pilot\\calc_ladder.json",
+  "calc/imm_est": "pilot\\calc_ladder.json",
+  "calc/ca_orc": "pilot\\calc_ladder.json",
+  "estimator/vis_acc": "pilot\\state_estimator_report.json",
+  "estimator/pos_err_med_m": "pilot\\state_estimator_report.json",
+  "versions/eval10/V1": "colab_bundle_round5\\results\\crop_ablation_r5.json",
+  "versions/eval10/V2": "colab_bundle_round5\\results\\crop_ablation_r5.json",
+  "versions/eval10/V3": "colab_bundle_round5\\results\\crop_ablation_r5.json",
+  "versions/eval10/V2-V1": "colab_bundle_round5\\results\\crop_ablation_r5.json",
+  "versions/eval10/V3-V2": "colab_bundle_round5\\results\\crop_ablation_r5.json",
+  "versions/eval10/V1h": "colab_bundle_round6\\results\\crop_ablation_r6.json",
+  "versions/eval10/V2h": "colab_bundle_round6\\results\\crop_ablation_r6.json",
+  "versions/eval10/V3-V2h": "colab_bundle_round6\\results\\crop_ablation_r6.json",
+  "versions/eval11/current": "colab_bundle_round7\\results\\crop_ablation_r7.json",
+  "versions/eval11/V1h": "colab_bundle_round7\\results\\crop_ablation_r7.json",
+  "versions/eval11/V2h": "colab_bundle_round7\\results\\crop_ablation_r7.json",
+  "versions/eval11/V3": "colab_bundle_round7\\results\\crop_ablation_r7.json",
+  "versions/eval11/V3c": "colab_bundle_round7\\results\\crop_ablation_r7.json",
+  "versions/eval11/V3c-V3": "colab_bundle_round7\\results\\crop_ablation_r7.json",
+  "versions/eval11/V3c-current": "colab_bundle_round7\\results\\crop_ablation_r7.json",
+  "look/eval12/none": "colab_bundle_round8\\results\\look_choice_r8.json",
+  "look/eval12/fixed2": "colab_bundle_round8\\results\\look_choice_r8.json",
+  "look/eval12/last_each2": "colab_bundle_round8\\results\\look_choice_r8.json",
+  "look/eval12/fixed8": "colab_bundle_round8\\results\\look_choice_r8.json",
+  "look/eval12/last-fixed2": "colab_bundle_round8\\results\\look_choice_r8.json",
+  "look/eval10/last-fixed2": "colab_bundle_round8\\results\\look_choice_r8.json",
+  "look/eval13/fixed2": "pilot\\look_choice_r9.json",
+  "look/eval13/last_each2": "pilot\\look_choice_r9.json",
+  "look/eval13/last-fixed2": "pilot\\look_choice_r9.json"
+ },
+ "values": {
+  "ladder/model_only": [
+   5.3,
+   [
+    2.7,
+    8.4
+   ]
+  ],
+  "ladder/A": [
+   51.9,
+   [
+    46.0,
+    57.8
+   ]
+  ],
+  "ladder/A+B": [
+   53.7,
+   [
+    47.6,
+    59.5
+   ]
+  ],
+  "ladder/A+C": [
+   63.0,
+   [
+    57.2,
+    68.6
+   ]
+  ],
+  "ladder/A+B+C": [
+   66.8,
+   [
+    61.0,
+    72.0
+   ]
+  ],
+  "ladder/A+B+C_exact": [
+   97.0,
+   [
+    95.2,
+    98.5
+   ]
+  ],
+  "calc/lsq_est": [
+   53.5,
+   [
+    47.4,
+    59.4
+   ]
+  ],
+  "calc/ca_est": [
+   66.8,
+   [
+    61.1,
+    72.0
+   ]
+  ],
+  "calc/imm_est": [
+   66.0,
+   [
+    60.9,
+    71.5
+   ]
+  ],
+  "calc/ca_orc": [
+   97.8,
+   [
+    96.1,
+    99.2
+   ]
+  ],
+  "estimator/vis_acc": [
+   99.9,
+   null
+  ],
+  "estimator/pos_err_med_m": [
+   0.102,
+   null
+  ],
+  "versions/eval10/V1": [
+   61.82,
+   [
+    56.59,
+    66.62
+   ]
+  ],
+  "versions/eval10/V2": [
+   71.38,
+   [
+    66.8,
+    75.43
+   ]
+  ],
+  "versions/eval10/V3": [
+   74.5,
+   [
+    69.91,
+    78.23
+   ]
+  ],
+  "versions/eval10/V2-V1": [
+   9.56,
+   [
+    5.59,
+    13.69
+   ]
+  ],
+  "versions/eval10/V3-V2": [
+   3.12,
+   [
+    -0.31,
+    6.45
+   ]
+  ],
+  "versions/eval10/V1h": [
+   64.63,
+   [
+    59.57,
+    69.42
+   ]
+  ],
+  "versions/eval10/V2h": [
+   70.7,
+   [
+    66.24,
+    74.63
+   ]
+  ],
+  "versions/eval10/V3-V2h": [
+   3.8,
+   [
+    0.42,
+    7.2
+   ]
+  ],
+  "versions/eval11/current": [
+   62.52,
+   [
+    56.93,
+    67.91
+   ]
+  ],
+  "versions/eval11/V1h": [
+   61.24,
+   [
+    56.55,
+    65.83
+   ]
+  ],
+  "versions/eval11/V2h": [
+   66.76,
+   [
+    62.29,
+    70.99
+   ]
+  ],
+  "versions/eval11/V3": [
+   70.04,
+   [
+    65.53,
+    74.29
+   ]
+  ],
+  "versions/eval11/V3c": [
+   71.45,
+   [
+    67.28,
+    75.55
+   ]
+  ],
+  "versions/eval11/V3c-V3": [
+   1.41,
+   [
+    -1.96,
+    5.04
+   ]
+  ],
+  "versions/eval11/V3c-current": [
+   8.94,
+   [
+    3.57,
+    14.17
+   ]
+  ],
+  "look/eval12/none": [
+   61.83,
+   [
+    56.62,
+    67.34
+   ]
+  ],
+  "look/eval12/fixed2": [
+   68.67,
+   [
+    63.81,
+    73.32
+   ]
+  ],
+  "look/eval12/last_each2": [
+   72.64,
+   [
+    68.11,
+    76.9
+   ]
+  ],
+  "look/eval12/fixed8": [
+   74.64,
+   [
+    70.28,
+    78.68
+   ]
+  ],
+  "look/eval12/last-fixed2": [
+   3.97,
+   [
+    0.53,
+    7.58
+   ]
+  ],
+  "look/eval10/last-fixed2": [
+   4.17,
+   [
+    0.96,
+    7.49
+   ]
+  ],
+  "look/eval13/fixed2": [
+   70.86,
+   [
+    66.28,
+    74.99
+   ]
+  ],
+  "look/eval13/last_each2": [
+   75.35,
+   [
+    71.13,
+    79.03
+   ]
+  ],
+  "look/eval13/last-fixed2": [
+   4.49,
+   [
+    1.34,
+    7.78
+   ]
+  ]
+ }
+}
