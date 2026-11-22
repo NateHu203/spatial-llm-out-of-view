@@ -10,6 +10,11 @@ Arms (--target):
            At test time it generates that line itself (greedy) and the answer is read after its own "Answer:".
   answer : control. Same data, steps and teacher answers, but the student is trained on the answer word only
            (no written state). This is model W's training recipe on the distillation data.
+  record : the per-frame sightings first, then the state line, then the answer.
+  motion : the camera's motion and each ball's position and velocity at the last frame first, then state and answer.
+  locate : diagnostic, no question and no motion: write where the two balls are in the LAST frame, or that they are
+           not visible. Measures how precisely the model can read a position as text, next to the measuring part.
+           Use --eval_split eval3,eval9 (eval3 has many more balls visible in the last frame).
 
 Reported on the eval split (twin accuracy = both twins right, questions whose answer differs between the twins):
   model    : the student's own answer
@@ -153,7 +158,7 @@ def step_inputs(model, mask, nxt, pkv):
 
 
 @torch.no_grad()
-def decode(model, proc, enc, opts, cached=True, max_new=MAX_NEW['state'], trace=None):
+def decode(model, proc, enc, opts, cached=True, max_new=MAX_NEW['state'], trace=None, stop='Answer:'):
     """Greedy decoding of a left-padded batch until every sequence has written 'Answer:'.
     Returns the generated texts and, per sequence, the two option logits read right after its 'Answer:' (None if it
     never wrote one). cached=False recomputes the whole sequence every step (slow; used to check the cache)."""
@@ -167,7 +172,7 @@ def decode(model, proc, enc, opts, cached=True, max_new=MAX_NEW['state'], trace=
         if trace is not None:
             trace.append(lg.cpu())
         for b in range(B):
-            if ans[b] is None and tok.decode(gen[b]).rstrip().endswith('Answer:'):
+            if ans[b] is None and tok.decode(gen[b]).rstrip().endswith(stop):
                 ans[b] = (float(lg[b, opts[b][0]]), float(lg[b, opts[b][1]]))
         if all(a is not None for a in ans):
             break
@@ -256,8 +261,115 @@ def summarize(rows, target):
     return s
 
 
+# ------------------------------------------------------------------ localisation diagnostic
+def locate_prompt(names):
+    return ('These 8 frames are from a video taken by a moving camera, one frame per second. Where are the '
+            f'{names[0]} ball and the {names[1]} ball in the last frame? Write each as `colour (x, z)` with x = metres to '
+            "the right and z = metres forward in the camera's own axes at the last frame, or `colour not visible` if it "
+            'is not in the last frame. Then write `Done`.')
+
+
+def locate_line(names, tr):
+    pos = np.array(tr['pos'], float)[-1]; vis = np.array(tr['vis'], bool)[-1]
+    return '; '.join(f'{n} ({pos[j, 0]:+.2f}, {pos[j, 1]:+.2f})' if vis[j] else f'{n} not visible'
+                     for j, n in enumerate(names)) + '. Done'
+
+
+def parse_locate(text):
+    """(pos (2, 2), vis (2,)) the student wrote, or None when the two balls cannot be told apart"""
+    segs = text.split('Done')[0].split(';')
+    if len(segs) != 2:
+        return None
+    pos = np.zeros((2, 2)); vis = np.zeros(2, bool)
+    for j, seg in enumerate(segs):
+        m = NUM.search(seg)
+        if m and 'not visible' not in seg:
+            pos[j] = (float(m.group(1)), float(m.group(2))); vis[j] = True
+    return pos, vis
+
+
+def run_locate(a):
+    """How precisely can the language model READ a position, as text? No motion, no extrapolation, no question:
+    the student writes where the two asked-about balls are in the LAST frame (or that they are not visible).
+    Compared, on the same balls, with the measuring part (the 2.5M network outside the model)."""
+    proc, model, params, _ = sts.build(a.seed, None)
+    tok = proc.tokenizer; eos = tok.convert_tokens_to_ids('<|im_end|>')
+    if a.init_lora:
+        sts.swap_lora(params, [x.to('cuda') for x in torch.load(a.init_lora)])
+    rng = np.random.default_rng(a.seed); t0 = time.time()
+    if a.n_train:
+        splits = a.train_split.split(',')
+        n_sc = {sp: len([f for f in os.listdir(os.path.join(sts.DATA, sp)) if f.endswith('.npz')]) for sp in splits}
+        perm = {sp: rng.permutation(n_sc[sp]) for sp in splits}
+        opt = torch.optim.AdamW([{'params': params, 'lr': a.lr}], weight_decay=0.0)
+        sched = torch.optim.lr_scheduler.OneCycleLR(opt, [a.lr], total_steps=a.n_train, pct_start=0.05)
+        curve = a.out.replace('.jsonl', '') + '_train.jsonl'
+        model.train(); logs = []
+        for step in range(a.n_train):
+            sp = splits[step % len(splits)]; i = int(perm[sp][(step // len(splits)) % n_sc[sp]])
+            sc = sts.load(sp, i); f = sts.vis_feats(model, proc, sp, i, sc['frames'])
+            tgt = tok.encode(locate_line(sc['names'], sts.scene_tracks(sp, i, sc)), add_special_tokens=False) + [eos]
+            enc = with_target(sts.encode_cached(proc, [(f, locate_prompt(sc['names']))]), tgt[:-1])
+            lg = model(**enc, logits_to_keep=len(tgt)).logits[0].float()
+            loss = F.cross_entropy(lg, torch.tensor(tgt, device='cuda'))
+            opt.zero_grad(); loss.backward(); torch.nn.utils.clip_grad_norm_(params, 1.0); opt.step(); sched.step()
+            logs.append(loss.item())
+            if (step + 1) % 100 == 0:
+                print(f'locate s{a.seed} {step + 1}/{a.n_train} loss {np.mean(logs[-100:]):.3f} {time.time() - t0:.0f}s', flush=True)
+                with open(curve, 'a') as fh:
+                    fh.write(json.dumps(dict(step=step + 1, loss=round(float(np.mean(logs[-100:])), 4))) + '\n')
+        if a.save_lora:
+            torch.save([p.detach().cpu() for p in params], a.save_lora)
+        del opt, sched, lg, loss, enc
+        for p in params:
+            p.grad = None
+        torch.cuda.empty_cache()
+    train_sec = time.time() - t0
+    model.eval()
+    for split in a.eval_split.split(','):
+        n_ev = min(a.n_eval, sts.EVAL_SCENES[split]); rows = []
+        est_path = os.path.join(sts.HERE, f'{split}_est_tracks.json')
+        est = json.load(open(est_path)) if os.path.exists(est_path) else None
+        for b0 in range(0, n_ev, 8):
+            if b0 % 80 == 0:
+                print(f'eval {split} {b0}/{n_ev} {time.time() - t0:.0f}s', flush=True)
+            idx = list(range(b0, min(b0 + 8, n_ev))); scs = [sts.load(split, i) for i in idx]
+            enc = sts.encode_cached(proc, [(sts.vis_feats(model, proc, split, i, sc['frames']), locate_prompt(sc['names']))
+                                           for i, sc in zip(idx, scs)])
+            texts, _ = decode(model, proc, enc, [(0, 1)] * len(idx), cached=not a.no_kv, max_new=40, stop='Done')
+            for i, sc, text in zip(idx, scs, texts):
+                text = text.split('Done')[0] + 'Done' if 'Done' in text else text   # drop what a finished sequence wrote while the batch went on
+                tr = sts.scene_tracks(split, i, sc); tpos = np.array(tr['pos'], float)[-1]; tvis = np.array(tr['vis'], bool)[-1]
+                w = parse_locate(text)
+                for j in range(2):
+                    row = dict(scene=i, ball=sc['names'][j], true_vis=bool(tvis[j]), text=text, wrote_vis=None, err=None, est_err=None)
+                    if w is not None:
+                        row['wrote_vis'] = bool(w[1][j])
+                        if tvis[j] and w[1][j]:
+                            row['err'] = float(np.linalg.norm(w[0][j] - tpos[j]))
+                    if est is not None and tvis[j] and np.array(est[i]['vis'], bool)[-1][j]:
+                        row['est_err'] = float(np.linalg.norm(np.array(est[i]['pos'], float)[-1][j] - tpos[j]))
+                    rows.append(row)
+        ok = [r for r in rows if r['wrote_vis'] is not None]
+        errs = [r['err'] for r in rows if r['err'] is not None]; ee = [r['est_err'] for r in rows if r['est_err'] is not None]
+        q = lambda v, p: round(float(np.percentile(v, p)), 3) if v else None
+        summ = dict(balls=len(rows), visible=int(sum(r['true_vis'] for r in rows)), malformed=len(rows) - len(ok),
+                    vis_acc=round(100 * float(np.mean([r['wrote_vis'] == r['true_vis'] for r in ok])), 1) if ok else None,
+                    err_med_m=q(errs, 50), err_p90_m=q(errs, 90), n_err=len(errs),
+                    measuring_part_err_med_m=q(ee, 50), measuring_part_err_p90_m=q(ee, 90))
+        res = dict(arm='locate', seed=a.seed, split=split, train_split=a.train_split, n_train=a.n_train,
+                   init_lora=a.init_lora, train_sec=round(train_sec), summary=summ, rows=rows)
+        with open(a.out, 'a') as fh:
+            fh.write(json.dumps(res) + '\n')
+        print(json.dumps({k: v for k, v in res.items() if k != 'rows'}), flush=True)
+        for r in rows[:6:2]:
+            print('  wrote:', repr(r['text']), flush=True)
+
+
 # ------------------------------------------------------------------ main
 def run(a):
+    if a.target == 'locate':
+        return run_locate(a)
     proc, model, params, _ = sts.build(a.seed, None)
     tok = proc.tokenizer
     if a.init_lora:
@@ -423,7 +535,7 @@ def run(a):
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser()
-    ap.add_argument('--target', default='state', choices=['state', 'answer', 'record', 'motion'])
+    ap.add_argument('--target', default='state', choices=['state', 'answer', 'record', 'motion', 'locate'])
     ap.add_argument('--odo', action='store_true', help="put the camera's own speed and yaw rate in the prompt (known to the system)")
     ap.add_argument('--teacher', default='orc', choices=['orc', 'est'], help='tracks the calculator reads: exact or estimated')
     ap.add_argument('--train_split', default='train3,train8,train9'); ap.add_argument('--eval_split', default='eval9')
