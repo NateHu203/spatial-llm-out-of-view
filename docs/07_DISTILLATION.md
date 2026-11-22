@@ -61,6 +61,28 @@ model learn to do it itself, so that at test time it gets **only the 8 frames an
 - `motion`: the camera's motion is learned (0.06 m/s, 0.025 rad/s median error), the balls are not (0.67 m, 0.27 m/s),
   and the longer text makes the final answer drift from what was written (83.5% agreement).
 
+### Localisation diagnostic (`locate`, 3000 steps, 3 seeds, 2026-11-22)
+
+Median position error on balls visible in the last frame, written as text by the student:
+
+| Seed | eval3 (n ≈ 221) | eval9 (n = 156) | Visibility correct |
+|---|---|---|---|
+| 0 | 0.291 m | 0.238 m | 99.8% |
+| 1 | 0.298 m | 0.264 m | 99.7–100% |
+| 2 | 0.246 m | 0.224 m | 99.5–99.9% |
+| **Mean** | **0.278 m** | **0.242 m** | |
+| Measuring part, same balls | 0.140 m | 0.119 m | |
+
+**Verdict by the pass rule: between 0.20 and 0.40 m, so "partly".** The rule's next step is longer training
+(`locate_long_s0`, 9000 steps) before any change of method.
+
+**What it changes in the reading above.** The model can read a visible ball's position as text to about 0.28 m, twice
+the measuring part's error but nowhere near the 1 m seen in `state` and `motion`. On eval9 most asked-about balls are
+hidden in the last frame, and in `state` the error was 0.46 m for balls still visible and 0.94 m for hidden ones. So
+the bottleneck is not reading one frame: it is carrying a ball across frames to where it is after it left. That is
+what the per-frame `record` arm supervises directly, and what a `record` run started from the `locate` weights would
+test (`record_from_locate_s0`).
+
 **Known unfairness.** The students train on train9 (same kind of twins as eval9) for 3000 steps; model W saw train3
 only, 1000 steps. The `answer` arm exists to absorb exactly this.
 
@@ -83,3 +105,4 @@ only, 1000 steps. The `answer` arm exists to absorb exactly this.
 | Nov 21 | `record` and `state` with `--odo` | Stopped: the camera numbers are extra information (rule 1). The `record --odo` weights are kept, untested |
 | Nov 21–22 | `motion`, seed 0 | 12.5%; dropped |
 | Nov 22 | `locate` arm, checkpoints, memory cap, run registry, queue; pass rules written | Queue started (see `distill_queue.py`) |
+| Nov 22 | `locate`, seeds 0–2 | 0.278 m on eval3 (measuring part 0.140 m): "partly" by the pass rule. Peak GPU memory 10.5 GB. Added `locate_long_s0` and `record_from_locate_s0` to the end of the queue |
