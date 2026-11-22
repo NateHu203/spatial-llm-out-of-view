@@ -190,6 +190,38 @@ def decode(model, proc, enc, opts, cached=True, max_new=MAX_NEW['state'], trace=
     return [tok.decode(g) for g in gen], ans
 
 
+def decode_items(model, proc, items, opts, **kw):
+    """decode() on [(features, prompt)], halving the batch when the GPU memory cap (--mem_cap_gb) is hit. With the cap,
+    running out of memory is an error we can react to; without it Windows silently spills into system memory and a run
+    slows down 20 times."""
+    try:
+        return decode(model, proc, sts.encode_cached(proc, items), opts, **kw)
+    except torch.OutOfMemoryError:
+        torch.cuda.empty_cache()
+        if len(items) == 1:
+            raise
+        h = len(items) // 2
+        print(f'GPU memory cap hit with a batch of {len(items)}: splitting it', flush=True)
+        ta, aa = decode_items(model, proc, items[:h], opts[:h], **kw)
+        tb, ab = decode_items(model, proc, items[h:], opts[h:], **kw)
+        return ta + tb, aa + ab
+
+
+RUN_ID = time.strftime('%Y%m%d-%H%M%S') + f'-{os.getpid()}'
+
+
+def register(event, a, **extra):
+    """one line per event in <workspace>/runs.jsonl: every run that was started, how it ended, and its numbers"""
+    rec = dict(event=event, time=time.strftime('%Y-%m-%d %H:%M:%S'), run=RUN_ID, target=a.target, seed=a.seed,
+               out=os.path.basename(a.out), **extra)
+    with open(os.path.join(sts.HERE, 'runs.jsonl'), 'a') as fh:
+        fh.write(json.dumps(rec) + '\n')
+
+
+def peak_gb():
+    return round(torch.cuda.max_memory_reserved() / 2 ** 30, 1)
+
+
 def check_cache(model, proc, split, n_scenes=2):
     """Cached decoding must match full recomputation ON THE SAME TOKENS (free-running greedy paths may split at a
     near-tie, so they are not compared): every step's logits from the cache against one teacher-forced full forward."""
@@ -304,8 +336,14 @@ def run_locate(a):
         opt = torch.optim.AdamW([{'params': params, 'lr': a.lr}], weight_decay=0.0)
         sched = torch.optim.lr_scheduler.OneCycleLR(opt, [a.lr], total_steps=a.n_train, pct_start=0.05)
         curve = a.out.replace('.jsonl', '') + '_train.jsonl'
-        model.train(); logs = []
-        for step in range(a.n_train):
+        model.train(); logs = []; start = 0; lg = loss = enc = None
+        ck = (a.save_lora or a.out) + '.ckpt'
+        if a.resume and os.path.exists(ck):
+            c = torch.load(ck, weights_only=False)
+            sts.swap_lora(params, [x.to('cuda') for x in c['lora']]); opt.load_state_dict(c['opt']); sched.load_state_dict(c['sched'])
+            logs, start = c['logs'], c['step']
+            print(f'resumed training from {ck} at step {start}', flush=True)
+        for step in range(start, a.n_train):
             sp = splits[step % len(splits)]; i = int(perm[sp][(step // len(splits)) % n_sc[sp]])
             sc = sts.load(sp, i); f = sts.vis_feats(model, proc, sp, i, sc['frames'])
             tgt = tok.encode(locate_line(sc['names'], sts.scene_tracks(sp, i, sc)), add_special_tokens=False) + [eos]
@@ -315,9 +353,13 @@ def run_locate(a):
             opt.zero_grad(); loss.backward(); torch.nn.utils.clip_grad_norm_(params, 1.0); opt.step(); sched.step()
             logs.append(loss.item())
             if (step + 1) % 100 == 0:
-                print(f'locate s{a.seed} {step + 1}/{a.n_train} loss {np.mean(logs[-100:]):.3f} {time.time() - t0:.0f}s', flush=True)
+                print(f'locate s{a.seed} {step + 1}/{a.n_train} loss {np.mean(logs[-100:]):.3f} peak {peak_gb()} GB '
+                      f'{time.time() - t0:.0f}s', flush=True)
                 with open(curve, 'a') as fh:
-                    fh.write(json.dumps(dict(step=step + 1, loss=round(float(np.mean(logs[-100:])), 4))) + '\n')
+                    fh.write(json.dumps(dict(step=step + 1, loss=round(float(np.mean(logs[-100:])), 4), peak_gb=peak_gb())) + '\n')
+            if (step + 1) % a.ckpt_every == 0 or step + 1 == a.n_train:
+                torch.save(dict(step=step + 1, lora=[p.detach().cpu() for p in params], opt=opt.state_dict(),
+                                sched=sched.state_dict(), logs=logs), ck)
         if a.save_lora:
             torch.save([p.detach().cpu() for p in params], a.save_lora)
         del opt, sched, lg, loss, enc
@@ -326,6 +368,7 @@ def run_locate(a):
         torch.cuda.empty_cache()
     train_sec = time.time() - t0
     model.eval()
+    summs = {}
     for split in a.eval_split.split(','):
         n_ev = min(a.n_eval, sts.EVAL_SCENES[split]); rows = []
         est_path = os.path.join(sts.HERE, f'{split}_est_tracks.json')
@@ -334,9 +377,8 @@ def run_locate(a):
             if b0 % 80 == 0:
                 print(f'eval {split} {b0}/{n_ev} {time.time() - t0:.0f}s', flush=True)
             idx = list(range(b0, min(b0 + 8, n_ev))); scs = [sts.load(split, i) for i in idx]
-            enc = sts.encode_cached(proc, [(sts.vis_feats(model, proc, split, i, sc['frames']), locate_prompt(sc['names']))
-                                           for i, sc in zip(idx, scs)])
-            texts, _ = decode(model, proc, enc, [(0, 1)] * len(idx), cached=not a.no_kv, max_new=40, stop='Done')
+            items = [(sts.vis_feats(model, proc, split, i, sc['frames']), locate_prompt(sc['names'])) for i, sc in zip(idx, scs)]
+            texts, _ = decode_items(model, proc, items, [(0, 1)] * len(idx), cached=not a.no_kv, max_new=40, stop='Done')
             for i, sc, text in zip(idx, scs, texts):
                 text = text.split('Done')[0] + 'Done' if 'Done' in text else text   # drop what a finished sequence wrote while the batch went on
                 tr = sts.scene_tracks(split, i, sc); tpos = np.array(tr['pos'], float)[-1]; tvis = np.array(tr['vis'], bool)[-1]
@@ -364,6 +406,8 @@ def run_locate(a):
         print(json.dumps({k: v for k, v in res.items() if k != 'rows'}), flush=True)
         for r in rows[:6:2]:
             print('  wrote:', repr(r['text']), flush=True)
+        summs[split] = summ
+    return summs
 
 
 # ------------------------------------------------------------------ main
@@ -429,8 +473,9 @@ def run(a):
             if (step + 1) % 100 == 0:
                 m = np.mean(logs[-100:], 0)
                 print(f'{a.target} s{a.seed} {step + 1}/{a.n_train} loss {m[0]:.3f} ans {m[1]:.3f} '
-                      f'teacher_ok {100 * np.mean(t_ok):.1f} longest_target {n_tgt} {time.time() - t0:.0f}s', flush=True)
-                point = dict(step=step + 1, loss=round(float(m[0]), 4), ans_loss=round(float(m[1]), 4), lr=sched.get_last_lr()[0])
+                      f'teacher_ok {100 * np.mean(t_ok):.1f} longest_target {n_tgt} peak {peak_gb()} GB {time.time() - t0:.0f}s', flush=True)
+                point = dict(step=step + 1, loss=round(float(m[0]), 4), ans_loss=round(float(m[1]), 4), lr=sched.get_last_lr()[0],
+                             peak_gb=peak_gb())
                 with open(curve, 'a') as fh:
                     fh.write(json.dumps(point) + '\n')
                 if wb:
@@ -484,10 +529,10 @@ def run(a):
         teach = teacher.scene(a.eval_split, i, sc); p7_t, v_t, tr = teacher.state(a.eval_split, i, sc)
         true = sts.scene_tracks(a.eval_split, i, sc); tpos = np.array(true['pos'], float); tvis = np.array(true['vis'], bool)
         opts = [sts.opt_ids(proc, q) for q in qs]
-        enc = sts.encode_cached(proc, [(fv, ask(q, tr)) for q in qs])
         if writes:
-            texts, ans = decode(model, proc, enc, opts, cached=not a.no_kv, max_new=MAX_NEW[a.target])
+            texts, ans = decode_items(model, proc, [(fv, ask(q, tr)) for q in qs], opts, cached=not a.no_kv, max_new=MAX_NEW[a.target])
         else:
+            enc = sts.encode_cached(proc, [(fv, ask(q, tr)) for q in qs])
             with torch.no_grad():
                 lg = model(**enc, logits_to_keep=1).logits[:, -1].float()
             texts = [''] * len(qs); ans = [(float(lg[k, o[0]]), float(lg[k, o[1]])) for k, o in enumerate(opts)]
@@ -531,6 +576,7 @@ def run(a):
     print(json.dumps({k: v for k, v in res.items() if k != 'rows'}), flush=True)
     for r in rows[:4] if writes else []:
         print('  wrote:', repr(r['text']), flush=True)
+    return {a.eval_split: summ}
 
 
 if __name__ == '__main__':
@@ -548,5 +594,19 @@ if __name__ == '__main__':
     ap.add_argument('--differs_only', action='store_true',
                     help='evaluate only the questions whose answer differs between the twins (all that twin accuracy uses)')
     ap.add_argument('--no_kv', action='store_true', help='decode without the key-value cache (slow)')
+    ap.add_argument('--mem_cap_gb', type=float, default=14.0,
+                    help='hard limit on this process\'s GPU memory: going over it is an error instead of a silent slowdown')
     ap.add_argument('--out', default=os.path.join(sts.HERE, 'res_distill.jsonl'))
-    run(ap.parse_args())
+    a = ap.parse_args()
+    import subprocess
+    total_gb = torch.cuda.get_device_properties(0).total_memory / 2 ** 30
+    torch.cuda.set_per_process_memory_fraction(min(1.0, a.mem_cap_gb / total_gb))
+    commit = subprocess.run(['git', '-C', os.path.dirname(os.path.abspath(__file__)), 'rev-parse', '--short', 'HEAD'],
+                            capture_output=True, text=True).stdout.strip()
+    register('start', a, args=vars(a), commit=commit, gpu=torch.cuda.get_device_name(0), gpu_total_gb=round(total_gb, 1))
+    try:
+        summary = run(a)
+    except BaseException as e:
+        register('error', a, error=repr(e)[:400], peak_gpu_gb=peak_gb())
+        raise
+    register('end', a, summary=summary, peak_gpu_gb=peak_gb())
