@@ -26,7 +26,7 @@ ALL = list(SPLITS)
 
 def _gen_code(split):
     n = SPLITS[split][1]
-    return ['-c', f"import os, sts; sts.gen('{split}', {n}, workers=os.cpu_count())"]
+    return ['-c', f"import os, sts; sts.gen('{split}', {n}, workers=min(8, os.cpu_count()))"]
 
 
 def data(quick):
@@ -67,10 +67,13 @@ def cache(quick):
 
 def model_w(quick):
     n = '40' if quick else '1000'
+    # SPATIAL_LLM_LOWMEM=1 (GPUs under 24 GB): one question per forward/backward instead of a batch of 3.
+    # Same averaged gradient per step, about a third of the activation memory.
+    micro = ['--micro'] if os.environ.get('SPATIAL_LLM_LOWMEM') == '1' else []
     return [Step('train_w', f'train model W: LoRA, {n} steps on ordinary videos (train3)',
                  ['sts.py', 'run', '--arm', 'lora', '--seed', '0', '--train_split', 'train3', '--n_train', n,
                   '--save_lora', 'w1k_s0.pt', '--tag', '_w1k_local', '--n_eval', '1', '--eval_split', 'eval8',
-                  '--out', 'res_w1k_local.jsonl'],
+                  '--out', 'res_w1k_local.jsonl'] + micro,
                  ['w1k_s0.pt'], gpu=True, minutes='9', fresh=['res_w1k_local.jsonl'])]
 
 
