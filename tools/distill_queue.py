@@ -31,8 +31,8 @@ QUEUE = {
     'record_s0': ['--target', 'record', '--seed', '0', '--differs_only'],
     # added 2026-11-22 after locate came out at 0.28 m ("partly"): longer training, as the pass rule says, and the
     # per-frame record started from the weights that already localise
-    'locate_long_s0': ['--target', 'locate', '--seed', '0', '--n_train', '9000', '--eval_split', 'eval3,eval9'],
     'record_from_locate_s0': ['--target', 'record', '--seed', '0', '--differs_only', '--init_lora', 'd_locate_s0.pt'],
+    'locate_long_s0': ['--target', 'locate', '--seed', '0', '--n_train', '9000', '--eval_split', 'eval3,eval9'],
 }
 EARLIER = {'answer_s0': 'res_d_answer.jsonl', 'state_s0': 'res_d_state.jsonl', 'motion_s0': 'res_d_motion.jsonl'}
 

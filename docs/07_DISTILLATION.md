@@ -35,13 +35,13 @@ model learn to do it itself, so that at test time it gets **only the 8 frames an
 
 | `--target` | What the student writes | Status |
 |---|---|---|
-| `answer` | the answer word (control) | seed 0 done |
-| `state` | each ball's position at the asked time, then the answer | seed 0 done |
+| `answer` | the answer word (control) | 3 seeds done |
+| `state` | each ball's position at the asked time, then the answer | 3 seeds done; no established effect |
 | `motion` | camera motion, each ball's position and velocity at the last frame, the state, the answer | seed 0 done; dropped |
-| `record` | every sighting frame by frame, the state, the answer | only run with `--odo`; not a result |
-| `locate` | diagnostic: where the two balls are in the last frame, nothing else | queued |
+| `record` | every sighting frame by frame, the state, the answer | seed 0 done (without `--odo`); worse than `state` |
+| `locate` | diagnostic: where the two balls are in the last frame, nothing else | 3 seeds done; "partly" |
 
-## Results so far (eval9, twin accuracy, one seed each)
+## Results of seed 0 (eval9, twin accuracy; the three-seed table is further down)
 
 | | Student's own answer [95% range] | Answer from the numbers it wrote | Median error of written positions |
 |---|---|---|---|
@@ -83,6 +83,29 @@ the bottleneck is not reading one frame: it is carrying a ball across frames to 
 what the per-frame `record` arm supervises directly, and what a `record` run started from the `locate` weights would
 test (`record_from_locate_s0`).
 
+### Three seeds of `state` and `answer`, and `record` (eval9, 2026-11-22)
+
+| Seed | `state` | `answer` | Difference | `state` position error |
+|---|---|---|---|---|
+| 0 | 27.5 | 22.2 | +5.3 | 0.96 m |
+| 1 | 23.2 | 23.6 | −0.4 | 1.00 m |
+| 2 | 22.0 | 22.2 | −0.2 | 0.99 m |
+| **Mean** | **24.2 [20.1, 28.5]** | **22.6** | **+1.6 [−2.6, +5.6]** | |
+
+Ranges: pair bootstrap over the 695 questions, each question's result averaged over the three seeds.
+
+**Verdict by the pass rule: fails on both conditions.** The difference includes 0 and `state` is not above 25%. Writing
+the state has no established effect. The +5.3 of seed 0 was noise; one seed would have given the wrong conclusion.
+
+`record` (seed 0, no camera numbers): **17.4 [13.4, 21.7]**, below `state`. Its per-frame sightings are 0.73 m off
+(median; visibility 98.9% correct), its positions at the asked time 1.54 m off (worse than `state`'s 0.95 m, so it
+fails its exploratory rule), and its final answer follows its own numbers only 87.8% of the time. A calculator given
+its sightings scores 27.1 [23.1, 31.3]: chance. Peak GPU memory 14.0 GB (at the cap; no slowdown).
+
+**Where the numbers stand.** Compared with the model alone (model W, 4.9%), every student is higher, because it no
+longer answers from the last frame, which is wrong on one twin of every pair by construction. But all of them sit at
+or below the 25% of guessing. Nothing here shows tracking.
+
 **Known unfairness.** The students train on train9 (same kind of twins as eval9) for 3000 steps; model W saw train3
 only, 1000 steps. The `answer` arm exists to absorb exactly this.
 
@@ -106,3 +129,6 @@ only, 1000 steps. The `answer` arm exists to absorb exactly this.
 | Nov 21–22 | `motion`, seed 0 | 12.5%; dropped |
 | Nov 22 | `locate` arm, checkpoints, memory cap, run registry, queue; pass rules written | Queue started (see `distill_queue.py`) |
 | Nov 22 | `locate`, seeds 0–2 | 0.278 m on eval3 (measuring part 0.140 m): "partly" by the pass rule. Peak GPU memory 10.5 GB. Added `locate_long_s0` and `record_from_locate_s0` to the end of the queue |
+| Nov 22 | `state` and `answer`, seeds 1 and 2 | Three-seed mean 24.2 vs 22.6, difference +1.6 [−2.6, +5.6]: fails the pass rule |
+| Nov 22 | `record`, seed 0, no camera numbers | 17.4%; sightings 0.73 m off, positions at the asked time 1.54 m off: fails |
+| Nov 22 | Queue restarted with `record_from_locate_s0` first (the more informative of the two), then `locate_long_s0` | running |
