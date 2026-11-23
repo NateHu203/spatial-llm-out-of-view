@@ -1,6 +1,7 @@
 # 7. Distilling the calculator into the model: design, rules and log
 
-*Started 2026-11-21. All runs so far on one RTX 4080 SUPER (16 GB), Windows.*
+*Started 2026-11-21. Runs on one RTX 4080 SUPER (16 GB), Windows, except `record_from_locate_s0` and
+`locate_long_s0`, which ran on a Colab L4 (2026-11-23).*
 
 ## The question
 
@@ -38,8 +39,8 @@ model learn to do it itself, so that at test time it gets **only the 8 frames an
 | `answer` | the answer word (control) | 3 seeds done |
 | `state` | each ball's position at the asked time, then the answer | 3 seeds done; no established effect |
 | `motion` | camera motion, each ball's position and velocity at the last frame, the state, the answer | seed 0 done; dropped |
-| `record` | every sighting frame by frame, the state, the answer | seed 0 done (without `--odo`); worse than `state` |
-| `locate` | diagnostic: where the two balls are in the last frame, nothing else | 3 seeds done; "partly" |
+| `record` | every sighting frame by frame, the state, the answer | seed 0 done (without `--odo`); worse than `state`. Started from the `locate` weights: no better |
+| `locate` | diagnostic: where the two balls are in the last frame, nothing else | 3000 steps, 3 seeds: "partly". 9000 steps, seed 0: 0.151 m, under the 0.20 m line |
 
 ## Results of seed 0 (eval9, twin accuracy; the three-seed table is further down)
 
@@ -82,6 +83,41 @@ hidden in the last frame, and in `state` the error was 0.46 m for balls still vi
 the bottleneck is not reading one frame: it is carrying a ball across frames to where it is after it left. That is
 what the per-frame `record` arm supervises directly, and what a `record` run started from the `locate` weights would
 test (`record_from_locate_s0`).
+
+### The two follow-ups (Colab L4, 2026-11-23)
+
+**`locate_long_s0`: 9000 steps instead of 3000, seed 0.**
+
+| | eval3 (n = 222) | eval9 (n = 156) | Visibility correct |
+|---|---|---|---|
+| `locate`, 3000 steps, seed 0 | 0.291 m | 0.238 m | 99.8% |
+| `locate_long_s0`, 9000 steps | **0.151 m** | **0.147 m** | 100.0% |
+| Measuring part, same balls | 0.140 m | 0.119 m | |
+
+- By the pass rule's number (0.20 m or less on eval3) this is a pass, and it is close to the measuring part. The rule
+  asks for the mean of three seeds; only seed 0 has been run at 9000 steps, so seeds 1 and 2 are still owed.
+- Training loss at the end 0.188 (mean of the last 100 steps), 2589 s for the 9000 steps, peak GPU memory 10.5 GB.
+
+**`record_from_locate_s0`: the `record` arm started from `d_locate_s0.pt` (the 3000-step weights), seed 0.**
+
+| | Student's own answer [95% range] | Answer from the numbers it wrote | Median error of positions at the asked time |
+|---|---|---|---|
+| `record_s0` (from model W) | 17.4 [13.4, 21.7] | 24.5 | 1.54 m |
+| `record_from_locate_s0` | 21.2 [17.1, 25.4] | 25.9 | 1.49 m |
+
+- Still at or below chance, and the positions at the asked time are as far off as before. Starting from weights that
+  localise the last frame does not make the record better. It fails the exploratory rule (more accurate than
+  `state`'s 0.95 m) as `record_s0` did.
+- The two ranges overlap, and this is one seed: the +3.8 over `record_s0` is not an established difference.
+- Not yet read from the result file: the per-frame sighting error and how often the answer follows the written
+  numbers. The file is in the Drive archive, not in `results/` yet.
+
+**What the two together say.** Reading a visible ball's position from the last frame as text is not the bottleneck: with
+longer training the student does it about as well as the measuring part. What fails is everything after that: placing
+the earlier sightings and carrying a ball to where it is after it left. Open question, not tested: the record is
+written in the last frame's camera axes, so an earlier sighting needs the camera's motion to be compensated. The
+0.73 m sighting error of `record_s0` could come from that step or from reading earlier frames badly. A `locate` run on
+every frame, each in its own camera axes, would separate the two.
 
 ### Three seeds of `state` and `answer`, and `record` (eval9, 2026-11-22)
 
@@ -131,5 +167,7 @@ only, 1000 steps. The `answer` arm exists to absorb exactly this.
 | Nov 22 | `locate`, seeds 0–2 | 0.278 m on eval3 (measuring part 0.140 m): "partly" by the pass rule. Peak GPU memory 10.5 GB. Added `locate_long_s0` and `record_from_locate_s0` to the end of the queue |
 | Nov 22 | `state` and `answer`, seeds 1 and 2 | Three-seed mean 24.2 vs 22.6, difference +1.6 [−2.6, +5.6]: fails the pass rule |
 | Nov 22 | `record`, seed 0, no camera numbers | 17.4%; sightings 0.73 m off, positions at the asked time 1.54 m off: fails |
-| Nov 22 | Queue restarted with `record_from_locate_s0` first (the more informative of the two), then `locate_long_s0` | running |
+| Nov 22 | Queue restarted with `record_from_locate_s0` first (the more informative of the two), then `locate_long_s0` | stopped at step 200 (next row) |
 | Nov 22 | Local queue stopped at step 200 of `record_from_locate_s0` (the desktop GPU was needed for something else). Workspace without the feature cache packed into `workspace/_colab/spatial_llm_distill_backup.tar`; notebook 07 runs the two open experiments from it | to be run on Colab (L4), from step 0 |
+| Nov 23 | `record_from_locate_s0` on Colab (L4), resumed after a disconnect from the step-3000 checkpoint and the 82 scenes already tested | 21.2% [17.1, 25.4]; positions at the asked time 1.49 m off: no better than `record_s0`, fails |
+| Nov 23 | `locate_long_s0` on Colab (L4), 9000 steps | 0.151 m on eval3, 0.147 m on eval9 (measuring part 0.140 / 0.119 m): under the 0.20 m line with one seed. Peak GPU memory 10.5 GB |

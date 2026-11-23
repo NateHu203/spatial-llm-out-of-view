@@ -39,4 +39,6 @@ Three seeds: `state` 24.2 [20.1, 28.5], `answer` 22.6, difference +1.6 [−2.6, 
 `runs.jsonl` is the registry: every run that was started, its arguments, the commit, how it ended and its peak GPU
 memory. `logs/` has the full output of the queue runs.
 
-`record_from_locate_s0` and `locate_long_s0` were moved to Colab (L4) on Nov 22; their results are added when they finish.
+`record_from_locate_s0` and `locate_long_s0` were moved to Colab (L4) on Nov 22 and finished on Nov 23. Their numbers are
+in [docs/07_DISTILLATION.md](../../docs/07_DISTILLATION.md); their raw result files and logs are in the Drive archive
+(`spatial_llm_distill_backup.tar`) and have not been copied into this repository yet.
