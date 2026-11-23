@@ -2,6 +2,7 @@
 
     python tools/distill_queue.py run      run every experiment of QUEUE that has no result yet (safe to re-run:
                                            finished ones are skipped, interrupted ones continue from their checkpoint)
+    python tools/distill_queue.py run a b  the same, for the experiments named a and b only
     python tools/distill_queue.py status   one line per experiment: state, training step, scenes tested, key numbers
 
 Everything is written under the workspace (default <repo>/workspace, or $SPATIAL_LLM_WORK):
@@ -52,7 +53,10 @@ def done(name):
 
 def run():
     env = dict(os.environ, SPATIAL_LLM_WORK=str(WORK), PYTHONPATH=str(REPO / 'src'), PYTHONUNBUFFERED='1')
+    only = sys.argv[2:]   # optional: run only these experiments
     for name, extra in QUEUE.items():
+        if only and name not in only:
+            continue
         if done(name):
             print(f'[{name}] already finished', flush=True)
             continue

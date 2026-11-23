@@ -132,3 +132,4 @@ only, 1000 steps. The `answer` arm exists to absorb exactly this.
 | Nov 22 | `state` and `answer`, seeds 1 and 2 | Three-seed mean 24.2 vs 22.6, difference +1.6 [−2.6, +5.6]: fails the pass rule |
 | Nov 22 | `record`, seed 0, no camera numbers | 17.4%; sightings 0.73 m off, positions at the asked time 1.54 m off: fails |
 | Nov 22 | Queue restarted with `record_from_locate_s0` first (the more informative of the two), then `locate_long_s0` | running |
+| Nov 22 | Local queue stopped at step 200 of `record_from_locate_s0` (the desktop GPU was needed for something else). Workspace without the feature cache packed into `workspace/_colab/spatial_llm_distill_backup.tar`; notebook 07 runs the two open experiments from it | to be run on Colab (L4), from step 0 |

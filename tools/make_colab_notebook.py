@@ -25,6 +25,9 @@ the current system. Use a GPU runtime with 24 GB or more (**L4** or A100); a T4 
 the small files (weights, checkpoints, results, logs, videos) are packed into one archive on your Google Drive. After a
 disconnect, run the cells again from the top: the archive is unpacked, finished steps are skipped, and only the image
 feature cache (about 15 GPU minutes) is rebuilt. Set `USE_DRIVE = False` to skip Drive.
+
+**Continuing from the desktop.** Put the archive made on the desktop (`spatial_llm_distill_backup.tar`, about 0.8 GB)
+into the top folder of your Google Drive before running. Section 1 then only rebuilds the image-feature cache.
 '''),
     code('''
 !nvidia-smi --query-gpu=name,memory.total --format=csv,noheader
@@ -80,35 +83,38 @@ backup()
 backup()
 '''),
     md('''
-## 2 · Localisation diagnostic (run this first)
+## 2 · The experiments that are still open
 
-The three arms tried so far all fail at the same place: the positions the student writes are off by about 1 m, against
-0.10 m for the measuring part. This arm isolates that step: no question, no motion, no extrapolation. The student
-writes where the two balls are in the **last frame**, or that they are not visible. About 10 minutes.
+`tools/distill_queue.py` skips every experiment whose result file is already in the workspace (the archive from the
+desktop holds all finished ones) and runs the rest. Each one is backed up to Drive when it ends; after a disconnect,
+run the notebook again from the top and training continues from the last backed-up state.
+
+| Experiment | What it is | On the 16 GB desktop |
+|---|---|---|
+| `record_from_locate_s0` | the student writes every sighting frame by frame, then the state, then the answer; it starts from the weights that already localise (`d_locate_s0.pt`) | about 2 h |
+| `locate_long_s0` | the localisation diagnostic with 9000 steps instead of 3000 | about 35 min |
 '''),
     code('''
-%cd /content/workspace
-!python ../src/distill.py --target locate --eval_split eval3,eval9 --save_lora d_locate_s0.pt --out res_d_locate.jsonl
-backup()
+NAMES = ['record_from_locate_s0', 'locate_long_s0']
+%cd /content/repo
+for name in NAMES:
+    !python tools/distill_queue.py run {name}
+    backup()
+!python tools/distill_queue.py status
 '''),
     md('''
-## 3 · The distillation arms
+## 3 · Any other arm (optional)
 
-Each arm trains for 3000 steps (about 30 minutes on a 16 GB desktop) and is then tested on eval9. Add `--resume` to
-continue an interrupted run: training restarts from the last checkpoint and evaluation skips finished scenes.
-
-| `--target` | The student writes | Tested on the authors' desktop |
-|---|---|---|
-| `answer` | the answer word only (control) | 22.2% |
-| `state` | each ball's position at the asked time, then the answer | 27.5% |
-| `motion` | camera motion, each ball's position and velocity, the state, the answer | 12.5% |
-| `record` | every sighting frame by frame, the state, the answer | not yet run without camera motion |
+`--target` is `answer`, `state`, `motion`, `record` or `locate`; `--seed` picks the seed; `--resume` continues an
+interrupted run. Tested so far (eval9, twin accuracy, chance is 25%): `answer` 22.6 (3 seeds), `state` 24.2 (3 seeds),
+`motion` 12.5, `record` 17.4.
 '''),
     code('''
-ARMS = ['record']          # e.g. ['record', 'state', 'answer']; add more seeds with --seed
+ARMS = []                  # e.g. ['record'] ; nothing is run while this is empty
+SEED = 1
 %cd /content/workspace
 for arm in ARMS:
-    !python ../src/distill.py --target {arm} --save_lora d_{arm}_s0.pt --out res_d_{arm}.jsonl --resume
+    !python ../src/distill.py --target {arm} --seed {SEED} --save_lora d_{arm}_s{SEED}.pt --out res_d_{arm}_s{SEED}.jsonl --resume
     backup()
 '''),
     md('''
