@@ -1,0 +1,78 @@
+﻿..\.venv\Scripts\python.exe : 
+At line:1 char:579
++ ... | Out-Null; ..\.venv\Scripts\python.exe ..\src\distill.py --target st ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Loading weights:   0%|          | 0/824 [00:00<?, ?it/s]
+Loading weights:   1%|          | 10/824 [00:00<00:11, 70.83it/s]
+Loading weights:   2%|▏         | 18/824 [00:00<00:19, 42.03it/s]
+Loading weights:   3%|▎         | 27/824 [00:00<00:15, 50.21it/s]
+Loading weights:   4%|▍         | 34/824 [00:00<00:14, 55.51it/s]
+Loading weights:   6%|▌         | 48/824 [00:00<00:10, 76.83it/s]
+Loading weights:   8%|▊         | 68/824 [00:00<00:06, 110.32it/s]
+Loading weights:  10%|▉         | 81/824 [00:00<00:06, 113.38it/s]
+Loading weights:  11%|█▏        | 94/824 [00:01<00:07, 98.33it/s] 
+Loading weights:  13%|█▎        | 105/824 [00:01<00:07, 93.47it/s]
+Loading weights:  14%|█▍        | 115/824 [00:01<00:08, 87.47it/s]
+Loading weights:  15%|█▌        | 125/824 [00:01<00:08, 86.69it/s]
+Loading weights:  16%|█▋        | 134/824 [00:01<00:07, 87.27it/s]
+Loading weights:  17%|█▋        | 143/824 [00:01<00:10, 67.07it/s]
+Loading weights:  19%|█▉        | 155/824 [00:01<00:08, 75.83it/s]
+Loading weights:  20%|██        | 167/824 [00:02<00:08, 75.90it/s]
+Loading weights:  24%|██▍       | 199/824 [00:02<00:04, 130.72it/s]
+Loading weights:  29%|██▉       | 241/824 [00:02<00:02, 200.85it/s]
+Loading weights:  32%|███▏      | 264/824 [00:02<00:03, 180.75it/s]
+Loading weights:  35%|███▌      | 289/824 [00:02<00:02, 195.81it/s]
+Loading weights:  38%|███▊      | 316/824 [00:02<00:02, 208.52it/s]
+Loading weights:  41%|████▏     | 341/824 [00:02<00:02, 210.31it/s]
+Loading weights: 100%|██████████| 824/824 [00:02<00:00, 291.28it/s]
+state s0 100/3000 loss 1.521 ans 7.448 teacher_ok 99.0 52s
+state s0 200/3000 loss 0.783 ans 0.342 teacher_ok 98.8 103s
+state s0 300/3000 loss 0.736 ans 0.353 teacher_ok 98.8 154s
+state s0 400/3000 loss 0.721 ans 0.277 teacher_ok 98.9 206s
+state s0 500/3000 loss 0.700 ans 0.231 teacher_ok 98.5 257s
+state s0 600/3000 loss 0.693 ans 0.223 teacher_ok 98.7 308s
+state s0 700/3000 loss 0.666 ans 0.221 teacher_ok 98.9 359s
+state s0 800/3000 loss 0.667 ans 0.209 teacher_ok 99.0 410s
+state s0 900/3000 loss 0.649 ans 0.225 teacher_ok 99.1 461s
+state s0 1000/3000 loss 0.652 ans 0.198 teacher_ok 99.2 512s
+state s0 1100/3000 loss 0.661 ans 0.174 teacher_ok 99.1 563s
+state s0 1200/3000 loss 0.640 ans 0.194 teacher_ok 99.1 614s
+state s0 1300/3000 loss 0.631 ans 0.155 teacher_ok 99.1 665s
+state s0 1400/3000 loss 0.633 ans 0.215 teacher_ok 99.2 716s
+state s0 1500/3000 loss 0.634 ans 0.151 teacher_ok 99.1 767s
+state s0 1600/3000 loss 0.619 ans 0.204 teacher_ok 99.2 819s
+state s0 1700/3000 loss 0.619 ans 0.160 teacher_ok 99.2 870s
+state s0 1800/3000 loss 0.599 ans 0.153 teacher_ok 99.2 921s
+state s0 1900/3000 loss 0.602 ans 0.154 teacher_ok 99.2 972s
+state s0 2000/3000 loss 0.602 ans 0.151 teacher_ok 99.2 1023s
+state s0 2100/3000 loss 0.598 ans 0.148 teacher_ok 99.1 1074s
+state s0 2200/3000 loss 0.584 ans 0.151 teacher_ok 99.1 1125s
+state s0 2300/3000 loss 0.588 ans 0.224 teacher_ok 99.1 1176s
+state s0 2400/3000 loss 0.578 ans 0.122 teacher_ok 99.1 1227s
+state s0 2500/3000 loss 0.581 ans 0.117 teacher_ok 99.1 1278s
+state s0 2600/3000 loss 0.572 ans 0.216 teacher_ok 99.1 1329s
+state s0 2700/3000 loss 0.573 ans 0.126 teacher_ok 99.1 1380s
+state s0 2800/3000 loss 0.586 ans 0.135 teacher_ok 99.2 1431s
+state s0 2900/3000 loss 0.571 ans 0.163 teacher_ok 99.1 1482s
+state s0 3000/3000 loss 0.582 ans 0.174 teacher_ok 99.2 1533s
+cache check: argmax agreement 87.5%, logit difference median 0.227 max 0.625
+eval eval9 0/600 1536s
+eval eval9 50/600 1646s
+eval eval9 100/600 1757s
+eval eval9 150/600 1867s
+eval eval9 200/600 1978s
+eval eval9 250/600 2088s
+eval eval9 300/600 2198s
+eval eval9 350/600 2307s
+eval eval9 400/600 2418s
+eval eval9 450/600 2529s
+eval eval9 500/600 2639s
+eval eval9 550/600 2749s
+{"arm": "distill_state_orc", "seed": 0, "split": "eval9", "train_split": "train3,train8,train9", "n_train": 3000, "init_lora": "w1k_s0.pt", "train_sec": 1533, "summary": {"model": {"acc": 27.5, "ci": [22.9, 32.4], "n": 695}, "teacher": {"acc": 97.8, "ci": [96.1, 99.2], "n": 695}, "plain_acc": 77.0, "agree_teacher": 77.1, "written": {"acc": 29.9, "ci": [25.0, 35.2], "n": 695}, "no_answer": 0, "malformed": 0, "err_med_m": 0.955, "err_p90_m": 2.105, "follows_written": 94.7}}
+  wrote: 'blue (+3.50, +0.09) 3.50 m; red (+2.49, +2.30) 3.38 m. Answer:'
+  wrote: 'blue (+3.78, +0.09) 3.78 m; red (+2.49, +2.30) 3.37 m. Answer:'
+  wrote: 'blue (+4.00, -0.79) 4.08 m; red (+2.67, +1.95) 3.29 m. Answer:'
+  wrote: 'blue (+4.00, -0.89) 4.10 m; red (+2.80, +1.97) 3.41 m. Answer:'

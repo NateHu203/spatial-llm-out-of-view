@@ -1,0 +1,51 @@
+
+$ <repo>\.venv\Scripts\python.exe <repo>\src\distill.py --target record --seed 0 --differs_only --save_lora d_record_s0.pt --out <repo>\workspace\res_d_record_s0.jsonl --resume
+Loading weights:   0%|          | 0/824 [00:00<?, ?it/s]Loading weights:   1%|          | 5/824 [00:00<00:18, 43.38it/s]Loading weights:   1%|▏         | 11/824 [00:00<00:17, 47.62it/s]Loading weights:   3%|▎         | 21/824 [00:00<00:12, 64.82it/s]Loading weights:   3%|▎         | 28/824 [00:00<00:13, 60.92it/s]Loading weights:   6%|▌         | 47/824 [00:00<00:08, 97.05it/s]Loading weights:   7%|▋         | 57/824 [00:00<00:09, 83.57it/s]Loading weights:   8%|▊         | 66/824 [00:00<00:09, 77.57it/s]Loading weights:  10%|▉         | 79/824 [00:01<00:08, 87.35it/s]Loading weights:  11%|█▏        | 93/824 [00:01<00:08, 88.33it/s]Loading weights:  12%|█▏        | 102/824 [00:01<00:09, 78.85it/s]Loading weights:  14%|█▎        | 113/824 [00:01<00:08, 80.33it/s]Loading weights:  15%|█▍        | 122/824 [00:01<00:09, 73.66it/s]Loading weights:  16%|█▌        | 130/824 [00:01<00:10, 67.98it/s]Loading weights:  18%|█▊        | 150/824 [00:01<00:07, 86.22it/s]Loading weights:  19%|█▉        | 159/824 [00:02<00:10, 61.66it/s]Loading weights:  23%|██▎       | 186/824 [00:02<00:06, 99.76it/s]Loading weights:  26%|██▌       | 211/824 [00:02<00:04, 127.74it/s]Loading weights:  30%|██▉       | 244/824 [00:02<00:03, 172.65it/s]Loading weights:  33%|███▎      | 273/824 [00:02<00:02, 200.61it/s]Loading weights:  37%|███▋      | 301/824 [00:02<00:02, 217.78it/s]Loading weights:  41%|████      | 336/824 [00:02<00:01, 250.46it/s]Loading weights:  44%|████▍     | 364/824 [00:02<00:01, 248.55it/s]Loading weights: 100%|██████████| 824/824 [00:02<00:00, 281.10it/s]
+record s0 100/3000 loss 0.819 ans 8.878 teacher_ok 99.0 longest_target 277 peak 14.0 GB 66s
+record s0 200/3000 loss 0.510 ans 0.470 teacher_ok 98.8 longest_target 277 peak 14.0 GB 131s
+record s0 300/3000 loss 0.470 ans 0.507 teacher_ok 98.8 longest_target 277 peak 14.0 GB 196s
+record s0 400/3000 loss 0.440 ans 0.399 teacher_ok 98.9 longest_target 277 peak 14.0 GB 262s
+record s0 500/3000 loss 0.438 ans 0.316 teacher_ok 98.5 longest_target 277 peak 14.0 GB 327s
+record s0 600/3000 loss 0.435 ans 0.258 teacher_ok 98.7 longest_target 277 peak 14.0 GB 392s
+record s0 700/3000 loss 0.415 ans 0.248 teacher_ok 98.9 longest_target 277 peak 14.0 GB 458s
+record s0 800/3000 loss 0.397 ans 0.273 teacher_ok 99.0 longest_target 277 peak 14.0 GB 524s
+record s0 900/3000 loss 0.395 ans 0.246 teacher_ok 99.1 longest_target 277 peak 14.0 GB 590s
+record s0 1000/3000 loss 0.409 ans 0.228 teacher_ok 99.2 longest_target 277 peak 14.0 GB 656s
+record s0 1100/3000 loss 0.405 ans 0.221 teacher_ok 99.1 longest_target 277 peak 14.0 GB 720s
+record s0 1200/3000 loss 0.388 ans 0.210 teacher_ok 99.1 longest_target 277 peak 14.0 GB 786s
+record s0 1300/3000 loss 0.391 ans 0.218 teacher_ok 99.1 longest_target 277 peak 14.0 GB 851s
+record s0 1400/3000 loss 0.384 ans 0.247 teacher_ok 99.2 longest_target 277 peak 14.0 GB 916s
+record s0 1500/3000 loss 0.392 ans 0.173 teacher_ok 99.1 longest_target 277 peak 14.0 GB 982s
+record s0 1600/3000 loss 0.369 ans 0.236 teacher_ok 99.2 longest_target 277 peak 14.0 GB 1047s
+record s0 1700/3000 loss 0.372 ans 0.153 teacher_ok 99.2 longest_target 277 peak 14.0 GB 1113s
+record s0 1800/3000 loss 0.370 ans 0.190 teacher_ok 99.2 longest_target 277 peak 14.0 GB 1178s
+record s0 1900/3000 loss 0.370 ans 0.225 teacher_ok 99.2 longest_target 277 peak 14.0 GB 1243s
+record s0 2000/3000 loss 0.369 ans 0.164 teacher_ok 99.2 longest_target 277 peak 14.0 GB 1309s
+record s0 2100/3000 loss 0.372 ans 0.173 teacher_ok 99.1 longest_target 277 peak 14.0 GB 1374s
+record s0 2200/3000 loss 0.366 ans 0.185 teacher_ok 99.1 longest_target 277 peak 14.0 GB 1439s
+record s0 2300/3000 loss 0.351 ans 0.235 teacher_ok 99.1 longest_target 277 peak 14.0 GB 1505s
+record s0 2400/3000 loss 0.349 ans 0.162 teacher_ok 99.1 longest_target 277 peak 14.0 GB 1571s
+record s0 2500/3000 loss 0.367 ans 0.181 teacher_ok 99.1 longest_target 277 peak 14.0 GB 1635s
+record s0 2600/3000 loss 0.346 ans 0.252 teacher_ok 99.1 longest_target 277 peak 14.0 GB 1701s
+record s0 2700/3000 loss 0.349 ans 0.182 teacher_ok 99.1 longest_target 277 peak 14.0 GB 1767s
+record s0 2800/3000 loss 0.362 ans 0.217 teacher_ok 99.2 longest_target 277 peak 14.0 GB 1832s
+record s0 2900/3000 loss 0.355 ans 0.196 teacher_ok 99.1 longest_target 277 peak 14.0 GB 1897s
+record s0 3000/3000 loss 0.353 ans 0.220 teacher_ok 99.2 longest_target 277 peak 14.0 GB 1962s
+cache check: argmax agreement 89.1%, logit difference median 0.219 max 0.625
+eval eval9 0/600 1965s gpu 7.7 GB
+eval eval9 50/600 2351s gpu 8.2 GB
+eval eval9 100/600 2723s gpu 8.2 GB
+eval eval9 150/600 3112s gpu 8.1 GB
+eval eval9 200/600 3495s gpu 8.2 GB
+eval eval9 250/600 3893s gpu 8.2 GB
+eval eval9 300/600 4264s gpu 8.1 GB
+eval eval9 350/600 4669s gpu 8.3 GB
+eval eval9 400/600 5049s gpu 8.5 GB
+eval eval9 450/600 5404s gpu 8.1 GB
+eval eval9 500/600 5807s gpu 8.2 GB
+eval eval9 550/600 6159s gpu 8.2 GB
+{"arm": "distill_record_orc", "seed": 0, "split": "eval9", "train_split": "train3,train8,train9", "n_train": 3000, "init_lora": "w1k_s0.pt", "train_sec": 1962, "summary": {"model": {"acc": 17.4, "ci": [13.4, 21.7], "n": 695}, "teacher": {"acc": 97.8, "ci": [96.1, 99.2], "n": 695}, "plain_acc": 55.3, "agree_teacher": 55.6, "from_record": {"acc": 27.1, "ci": [23.1, 31.3], "n": 695}, "rec_malformed": 0, "rec_vis_acc": 98.9, "rec_err_med_m": 0.726, "rec_err_p90_m": 1.548, "written": {"acc": 24.5, "ci": [20.1, 28.8], "n": 695}, "no_answer": 0, "malformed": 0, "err_med_m": 1.543, "err_p90_m": 2.872, "follows_written": 87.8}}
+  wrote: 'blue: t0 (+2.01, +2.00), t1 (+2.48, +1.68), t2 (+2.95, +1.36), t3 (+3.42, +1.04); red: t0 (+0.80, +2.00), t1 (+1.10, +2.00), t2 (+1.40, +2.00), t3 (+1.70, +2.00), t4 (+2.00, +2.00), t5 (+2.30, +2.00), t6 (+2.60, +2.00). At the asked time: blue (+6.06, -1.00) 6.13 m; red (+3.30, +1.56) 3.64 m. Answer:'
+  wrote: 'blue: t0 (+2.01, +2.00), t1 (+2.35, +1.58), t2 (+2.69, +1.16), t3 (+3.03, +0.74); red: t0 (-1.40, +2.00), t1 (-0.80, +2.10), t2 (-0.20, +2.20), t3 (+0.39, +2.30), t4 (+0.99, +2.40), t5 (+1.59, +2.50), t6 (+2.19, +2.60). At the asked time: blue (+4.64, -2.00) 5.03 m; red (+3.13, +2.40) 3.96 m. Answer:'
+  wrote: 'red: t0 (+1.26, +2.00), t1 (+1.53, +2.00), t2 (+1.80, +2.00), t3 (+2.07, +2.00), t4 (+2.34, +2.00), t5 (+2.61, +2.00), t6 (+2.88, +2.00); blue: t0 (+1.30, +1.00), t1 (+1.52, +0.82), t2 (+1.74, +0.64), t3 (+1.96, +0.46). At the asked time: red (+3.10, +2.00) 3.66 m; blue (+2.86, -0.20) 2.87 m. Answer:'
+  wrote: 'red: t0 (+0.71, +2.20), t1 (+1.00, +2.24), t2 (+1.29, +2.28), t3 (+1.58, +2.32), t4 (+1.87, +2.36), t5 (+2.16, +2.40), t6 (+2.45, +2.44); blue: t0 (+1.30, +1.04), t1 (+1.50, +0.82), t2 (+1.70, +0.60), t3 (+1.90, +0.38). At the asked time: red (+3.10, +2.10) 3.76 m; blue (+2.84, -1.00) 3.01 m. Answer:'

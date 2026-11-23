@@ -1,0 +1,53 @@
+
+$ <repo>\.venv\Scripts\python.exe <repo>\src\distill.py --target locate --seed 0 --eval_split eval3,eval9 --save_lora d_locate_s0.pt --out <repo>\workspace\res_d_locate_s0.jsonl --resume
+Loading weights:   0%|          | 0/824 [00:00<?, ?it/s]Loading weights:   1%|          | 10/824 [00:00<00:11, 71.78it/s]Loading weights:   3%|▎         | 21/824 [00:00<00:08, 90.24it/s]Loading weights:   4%|▍         | 31/824 [00:00<00:11, 70.34it/s]Loading weights:   5%|▍         | 39/824 [00:00<00:11, 65.42it/s]Loading weights:   6%|▌         | 46/824 [00:00<00:13, 59.65it/s]Loading weights:   7%|▋         | 56/824 [00:00<00:11, 69.65it/s]Loading weights:   8%|▊         | 64/824 [00:00<00:10, 69.82it/s]Loading weights:   9%|▉         | 76/824 [00:01<00:09, 75.95it/s]Loading weights:  10%|█         | 86/824 [00:01<00:09, 78.02it/s]Loading weights:  11%|█▏        | 94/824 [00:01<00:09, 74.27it/s]Loading weights:  12%|█▏        | 102/824 [00:01<00:11, 65.57it/s]Loading weights:  13%|█▎        | 110/824 [00:01<00:10, 68.80it/s]Loading weights:  14%|█▍        | 118/824 [00:01<00:14, 49.86it/s]Loading weights:  15%|█▌        | 124/824 [00:02<00:15, 45.17it/s]Loading weights:  18%|█▊        | 149/824 [00:02<00:07, 85.56it/s]Loading weights:  22%|██▏       | 183/824 [00:02<00:04, 140.53it/s]Loading weights:  28%|██▊       | 228/824 [00:02<00:02, 208.93it/s]Loading weights:  32%|███▏      | 260/824 [00:02<00:02, 235.86it/s]Loading weights:  35%|███▍      | 287/824 [00:02<00:02, 225.87it/s]Loading weights: 100%|██████████| 824/824 [00:02<00:00, 312.06it/s]
+locate s0 100/3000 loss 1.119 peak 10.5 GB 18s
+locate s0 200/3000 loss 0.381 peak 10.5 GB 34s
+locate s0 300/3000 loss 0.329 peak 10.5 GB 51s
+locate s0 400/3000 loss 0.365 peak 10.5 GB 69s
+locate s0 500/3000 loss 0.311 peak 10.5 GB 87s
+locate s0 600/3000 loss 0.294 peak 10.5 GB 105s
+locate s0 700/3000 loss 0.302 peak 10.5 GB 123s
+locate s0 800/3000 loss 0.373 peak 10.5 GB 141s
+locate s0 900/3000 loss 0.338 peak 10.5 GB 159s
+locate s0 1000/3000 loss 0.244 peak 10.5 GB 176s
+locate s0 1100/3000 loss 0.287 peak 10.5 GB 194s
+locate s0 1200/3000 loss 0.341 peak 10.5 GB 212s
+locate s0 1300/3000 loss 0.251 peak 10.5 GB 230s
+locate s0 1400/3000 loss 0.291 peak 10.5 GB 248s
+locate s0 1500/3000 loss 0.268 peak 10.5 GB 266s
+locate s0 1600/3000 loss 0.308 peak 10.5 GB 284s
+locate s0 1700/3000 loss 0.281 peak 10.5 GB 302s
+locate s0 1800/3000 loss 0.291 peak 10.5 GB 320s
+locate s0 1900/3000 loss 0.209 peak 10.5 GB 337s
+locate s0 2000/3000 loss 0.239 peak 10.5 GB 355s
+locate s0 2100/3000 loss 0.234 peak 10.5 GB 373s
+locate s0 2200/3000 loss 0.295 peak 10.5 GB 390s
+locate s0 2300/3000 loss 0.247 peak 10.5 GB 408s
+locate s0 2400/3000 loss 0.279 peak 10.5 GB 425s
+locate s0 2500/3000 loss 0.205 peak 10.5 GB 443s
+locate s0 2600/3000 loss 0.300 peak 10.5 GB 460s
+locate s0 2700/3000 loss 0.254 peak 10.5 GB 478s
+locate s0 2800/3000 loss 0.214 peak 10.5 GB 495s
+locate s0 2900/3000 loss 0.263 peak 10.5 GB 513s
+locate s0 3000/3000 loss 0.229 peak 10.5 GB 530s
+eval eval3 0/300 530s
+eval eval3 80/300 543s
+eval eval3 160/300 558s
+eval eval3 240/300 571s
+{"arm": "locate", "seed": 0, "split": "eval3", "train_split": "train3,train8,train9", "n_train": 3000, "init_lora": "w1k_s0.pt", "train_sec": 530, "summary": {"balls": 600, "visible": 222, "malformed": 0, "vis_acc": 99.8, "err_med_m": 0.291, "err_p90_m": 0.704, "n_err": 221, "measuring_part_err_med_m": 0.14, "measuring_part_err_p90_m": 0.335}}
+  wrote: 'red (-0.20, +6.20); yellow (+0.32, +4.07). Done'
+  wrote: 'red not visible; green (-1.18, +3.77). Done'
+  wrote: 'red not visible; blue not visible. Done'
+eval eval9 0/600 582s
+eval eval9 80/600 592s
+eval eval9 160/600 603s
+eval eval9 240/600 615s
+eval eval9 320/600 625s
+eval eval9 400/600 636s
+eval eval9 480/600 646s
+eval eval9 560/600 656s
+{"arm": "locate", "seed": 0, "split": "eval9", "train_split": "train3,train8,train9", "n_train": 3000, "init_lora": "w1k_s0.pt", "train_sec": 530, "summary": {"balls": 1200, "visible": 156, "malformed": 0, "vis_acc": 99.8, "err_med_m": 0.238, "err_p90_m": 0.548, "n_err": 156, "measuring_part_err_med_m": 0.119, "measuring_part_err_p90_m": 0.27}}
+  wrote: 'blue not visible; red not visible. Done'
+  wrote: 'blue not visible; red not visible. Done'
+  wrote: 'red not visible; blue not visible. Done'

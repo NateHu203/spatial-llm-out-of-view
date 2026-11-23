@@ -1,0 +1,46 @@
+
+$ <repo>\.venv\Scripts\python.exe <repo>\src\distill.py --target answer --seed 2 --save_lora d_answer_s2.pt --out <repo>\workspace\res_d_answer_s2.jsonl --resume
+Loading weights:   0%|          | 0/824 [00:00<?, ?it/s]Loading weights:   2%|▏         | 15/824 [00:00<00:06, 125.44it/s]Loading weights:   4%|▎         | 30/824 [00:00<00:06, 125.45it/s]Loading weights:   5%|▌         | 43/824 [00:00<00:09, 79.65it/s] Loading weights:   6%|▋         | 53/824 [00:00<00:11, 69.85it/s]Loading weights:  10%|▉         | 82/824 [00:00<00:06, 113.08it/s]Loading weights:  12%|█▏        | 97/824 [00:00<00:06, 112.33it/s]Loading weights:  14%|█▍        | 117/824 [00:01<00:06, 117.15it/s]Loading weights:  16%|█▌        | 130/824 [00:01<00:06, 107.05it/s]Loading weights:  17%|█▋        | 142/824 [00:01<00:08, 84.02it/s] Loading weights:  18%|█▊        | 152/824 [00:01<00:08, 82.92it/s]Loading weights:  20%|█▉        | 161/824 [00:01<00:08, 74.17it/s]Loading weights:  21%|██        | 169/824 [00:01<00:08, 74.70it/s]Loading weights:  23%|██▎       | 192/824 [00:01<00:05, 109.73it/s]Loading weights:  27%|██▋       | 221/824 [00:02<00:03, 151.78it/s]Loading weights:  31%|███       | 254/824 [00:02<00:02, 197.48it/s]Loading weights:  33%|███▎      | 276/824 [00:02<00:02, 192.86it/s]Loading weights:  37%|███▋      | 306/824 [00:02<00:02, 213.76it/s]Loading weights:  40%|███▉      | 329/824 [00:02<00:02, 199.24it/s]Loading weights: 100%|██████████| 824/824 [00:02<00:00, 313.33it/s]
+answer s2 100/3000 loss 0.582 ans 0.582 teacher_ok 99.0 longest_target 1 peak 10.4 GB 45s
+answer s2 200/3000 loss 0.712 ans 0.712 teacher_ok 99.5 longest_target 1 peak 10.4 GB 89s
+answer s2 300/3000 loss 0.762 ans 0.762 teacher_ok 99.2 longest_target 1 peak 10.4 GB 133s
+answer s2 400/3000 loss 0.646 ans 0.646 teacher_ok 99.3 longest_target 1 peak 10.4 GB 177s
+answer s2 500/3000 loss 0.787 ans 0.787 teacher_ok 99.3 longest_target 1 peak 10.4 GB 222s
+answer s2 600/3000 loss 0.719 ans 0.719 teacher_ok 99.3 longest_target 1 peak 10.4 GB 266s
+answer s2 700/3000 loss 0.743 ans 0.743 teacher_ok 99.2 longest_target 1 peak 10.4 GB 310s
+answer s2 800/3000 loss 0.658 ans 0.658 teacher_ok 99.2 longest_target 1 peak 10.4 GB 354s
+answer s2 900/3000 loss 0.639 ans 0.639 teacher_ok 99.3 longest_target 1 peak 10.4 GB 398s
+answer s2 1000/3000 loss 0.609 ans 0.609 teacher_ok 99.3 longest_target 1 peak 10.4 GB 443s
+answer s2 1100/3000 loss 0.701 ans 0.701 teacher_ok 99.3 longest_target 1 peak 10.4 GB 487s
+answer s2 1200/3000 loss 0.642 ans 0.642 teacher_ok 99.2 longest_target 1 peak 10.4 GB 531s
+answer s2 1300/3000 loss 0.728 ans 0.728 teacher_ok 99.2 longest_target 1 peak 10.4 GB 576s
+answer s2 1400/3000 loss 0.635 ans 0.635 teacher_ok 99.1 longest_target 1 peak 10.4 GB 620s
+answer s2 1500/3000 loss 0.575 ans 0.575 teacher_ok 99.1 longest_target 1 peak 10.4 GB 664s
+answer s2 1600/3000 loss 0.671 ans 0.671 teacher_ok 99.1 longest_target 1 peak 10.4 GB 708s
+answer s2 1700/3000 loss 0.622 ans 0.622 teacher_ok 99.2 longest_target 1 peak 10.4 GB 752s
+answer s2 1800/3000 loss 0.610 ans 0.610 teacher_ok 99.2 longest_target 1 peak 10.4 GB 796s
+answer s2 1900/3000 loss 0.628 ans 0.628 teacher_ok 99.1 longest_target 1 peak 10.4 GB 840s
+answer s2 2000/3000 loss 0.492 ans 0.492 teacher_ok 99.1 longest_target 1 peak 10.4 GB 884s
+answer s2 2100/3000 loss 0.626 ans 0.626 teacher_ok 99.2 longest_target 1 peak 10.4 GB 928s
+answer s2 2200/3000 loss 0.553 ans 0.553 teacher_ok 99.2 longest_target 1 peak 10.4 GB 972s
+answer s2 2300/3000 loss 0.414 ans 0.414 teacher_ok 99.2 longest_target 1 peak 10.4 GB 1016s
+answer s2 2400/3000 loss 0.652 ans 0.652 teacher_ok 99.2 longest_target 1 peak 10.4 GB 1060s
+answer s2 2500/3000 loss 0.610 ans 0.610 teacher_ok 99.2 longest_target 1 peak 10.4 GB 1104s
+answer s2 2600/3000 loss 0.564 ans 0.564 teacher_ok 99.2 longest_target 1 peak 10.4 GB 1148s
+answer s2 2700/3000 loss 0.464 ans 0.464 teacher_ok 99.1 longest_target 1 peak 10.4 GB 1192s
+answer s2 2800/3000 loss 0.570 ans 0.570 teacher_ok 99.2 longest_target 1 peak 10.4 GB 1237s
+answer s2 2900/3000 loss 0.647 ans 0.647 teacher_ok 99.2 longest_target 1 peak 10.4 GB 1281s
+answer s2 3000/3000 loss 0.399 ans 0.399 teacher_ok 99.2 longest_target 1 peak 10.4 GB 1325s
+eval eval9 0/600 1325s gpu 7.4 GB
+eval eval9 50/600 1347s gpu 8.0 GB
+eval eval9 100/600 1369s gpu 8.0 GB
+eval eval9 150/600 1391s gpu 8.0 GB
+eval eval9 200/600 1413s gpu 8.0 GB
+eval eval9 250/600 1435s gpu 8.0 GB
+eval eval9 300/600 1457s gpu 8.0 GB
+eval eval9 350/600 1479s gpu 8.0 GB
+eval eval9 400/600 1501s gpu 8.0 GB
+eval eval9 450/600 1522s gpu 8.0 GB
+eval eval9 500/600 1544s gpu 8.0 GB
+eval eval9 550/600 1566s gpu 8.0 GB
+{"arm": "distill_answer_orc", "seed": 2, "split": "eval9", "train_split": "train3,train8,train9", "n_train": 3000, "init_lora": "w1k_s0.pt", "train_sec": 1325, "summary": {"model": {"acc": 22.2, "ci": [17.2, 27.9], "n": 695}, "teacher": {"acc": 97.8, "ci": [96.1, 99.2], "n": 695}, "plain_acc": 76.3, "agree_teacher": 76.1}}

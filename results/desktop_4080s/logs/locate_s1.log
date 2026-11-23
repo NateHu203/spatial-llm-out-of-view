@@ -1,0 +1,53 @@
+
+$ <repo>\.venv\Scripts\python.exe <repo>\src\distill.py --target locate --seed 1 --eval_split eval3,eval9 --save_lora d_locate_s1.pt --out <repo>\workspace\res_d_locate_s1.jsonl --resume
+Loading weights:   0%|          | 0/824 [00:00<?, ?it/s]Loading weights:   1%|          | 10/824 [00:00<00:11, 69.78it/s]Loading weights:   2%|▏         | 17/824 [00:00<00:13, 59.05it/s]Loading weights:   3%|▎         | 24/824 [00:00<00:14, 56.10it/s]Loading weights:   4%|▍         | 34/824 [00:00<00:11, 66.34it/s]Loading weights:   5%|▌         | 42/824 [00:00<00:13, 59.74it/s]Loading weights:   6%|▌         | 51/824 [00:00<00:12, 60.26it/s]Loading weights:   8%|▊         | 62/824 [00:00<00:10, 71.70it/s]Loading weights:   9%|▉         | 73/824 [00:01<00:09, 81.78it/s]Loading weights:  10%|▉         | 82/824 [00:01<00:11, 67.22it/s]Loading weights:  12%|█▏        | 97/824 [00:01<00:09, 79.86it/s]Loading weights:  13%|█▎        | 109/824 [00:01<00:08, 86.16it/s]Loading weights:  15%|█▍        | 120/824 [00:01<00:07, 88.33it/s]Loading weights:  16%|█▌        | 130/824 [00:01<00:07, 90.02it/s]Loading weights:  17%|█▋        | 143/824 [00:01<00:07, 96.20it/s]Loading weights:  19%|█▉        | 159/824 [00:01<00:06, 98.16it/s]Loading weights:  23%|██▎       | 192/824 [00:02<00:04, 150.24it/s]Loading weights:  27%|██▋       | 225/824 [00:02<00:03, 195.65it/s]Loading weights:  30%|██▉       | 247/824 [00:02<00:02, 201.21it/s]Loading weights:  33%|███▎      | 269/824 [00:02<00:02, 205.80it/s]Loading weights:  36%|███▌      | 297/824 [00:02<00:02, 207.98it/s]Loading weights:  40%|████      | 333/824 [00:02<00:02, 245.08it/s]Loading weights: 100%|██████████| 824/824 [00:02<00:00, 309.71it/s]
+locate s1 100/3000 loss 1.141 peak 10.5 GB 17s
+locate s1 200/3000 loss 0.403 peak 10.5 GB 35s
+locate s1 300/3000 loss 0.419 peak 10.5 GB 52s
+locate s1 400/3000 loss 0.298 peak 10.5 GB 69s
+locate s1 500/3000 loss 0.259 peak 10.5 GB 86s
+locate s1 600/3000 loss 0.354 peak 10.5 GB 103s
+locate s1 700/3000 loss 0.335 peak 10.5 GB 120s
+locate s1 800/3000 loss 0.369 peak 10.5 GB 137s
+locate s1 900/3000 loss 0.301 peak 10.5 GB 155s
+locate s1 1000/3000 loss 0.269 peak 10.5 GB 172s
+locate s1 1100/3000 loss 0.334 peak 10.5 GB 189s
+locate s1 1200/3000 loss 0.263 peak 10.5 GB 206s
+locate s1 1300/3000 loss 0.239 peak 10.5 GB 223s
+locate s1 1400/3000 loss 0.306 peak 10.5 GB 240s
+locate s1 1500/3000 loss 0.268 peak 10.5 GB 257s
+locate s1 1600/3000 loss 0.258 peak 10.5 GB 274s
+locate s1 1700/3000 loss 0.232 peak 10.5 GB 291s
+locate s1 1800/3000 loss 0.267 peak 10.5 GB 308s
+locate s1 1900/3000 loss 0.281 peak 10.5 GB 325s
+locate s1 2000/3000 loss 0.249 peak 10.5 GB 342s
+locate s1 2100/3000 loss 0.250 peak 10.5 GB 359s
+locate s1 2200/3000 loss 0.280 peak 10.5 GB 376s
+locate s1 2300/3000 loss 0.222 peak 10.5 GB 393s
+locate s1 2400/3000 loss 0.244 peak 10.5 GB 410s
+locate s1 2500/3000 loss 0.203 peak 10.5 GB 427s
+locate s1 2600/3000 loss 0.237 peak 10.5 GB 445s
+locate s1 2700/3000 loss 0.255 peak 10.5 GB 462s
+locate s1 2800/3000 loss 0.234 peak 10.5 GB 479s
+locate s1 2900/3000 loss 0.251 peak 10.5 GB 496s
+locate s1 3000/3000 loss 0.229 peak 10.5 GB 513s
+eval eval3 0/300 513s
+eval eval3 80/300 525s
+eval eval3 160/300 538s
+eval eval3 240/300 551s
+{"arm": "locate", "seed": 1, "split": "eval3", "train_split": "train3,train8,train9", "n_train": 3000, "init_lora": "w1k_s0.pt", "train_sec": 513, "summary": {"balls": 600, "visible": 222, "malformed": 0, "vis_acc": 99.7, "err_med_m": 0.298, "err_p90_m": 0.645, "n_err": 221, "measuring_part_err_med_m": 0.14, "measuring_part_err_p90_m": 0.335}}
+  wrote: 'red (+0.23, +5.60); yellow (+0.90, +4.20). Done'
+  wrote: 'red not visible; green (-1.47, +4.18). Done'
+  wrote: 'red not visible; blue not visible. Done'
+eval eval9 0/600 561s
+eval eval9 80/600 570s
+eval eval9 160/600 580s
+eval eval9 240/600 591s
+eval eval9 320/600 600s
+eval eval9 400/600 610s
+eval eval9 480/600 619s
+eval eval9 560/600 629s
+{"arm": "locate", "seed": 1, "split": "eval9", "train_split": "train3,train8,train9", "n_train": 3000, "init_lora": "w1k_s0.pt", "train_sec": 513, "summary": {"balls": 1200, "visible": 156, "malformed": 0, "vis_acc": 100.0, "err_med_m": 0.264, "err_p90_m": 0.552, "n_err": 156, "measuring_part_err_med_m": 0.119, "measuring_part_err_p90_m": 0.27}}
+  wrote: 'blue not visible; red not visible. Done'
+  wrote: 'blue not visible; red not visible. Done'
+  wrote: 'red not visible; blue not visible. Done'

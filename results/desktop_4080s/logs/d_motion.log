@@ -1,0 +1,60 @@
+﻿..\.venv\Scripts\python.exe : 
+At line:1 char:455
++ ... WD\..\src"; ..\.venv\Scripts\python.exe ..\src\distill.py --target mo ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Loading weights:   0%|          | 0/824 [00:00<?, ?it/s]
+Loading weights:   4%|▎         | 30/824 [00:00<00:03, 223.18it/s]
+Loading weights:   6%|▋         | 53/824 [00:00<00:05, 138.99it/s]
+Loading weights:   8%|▊         | 69/824 [00:00<00:08, 93.87it/s] 
+Loading weights:  10%|█         | 86/824 [00:00<00:06, 107.82it/s]
+Loading weights:  12%|█▏        | 101/824 [00:00<00:06, 103.89it/s]
+Loading weights:  14%|█▎        | 113/824 [00:01<00:07, 97.97it/s] 
+Loading weights:  15%|█▌        | 125/824 [00:01<00:07, 94.55it/s]
+Loading weights:  17%|█▋        | 140/824 [00:01<00:06, 98.86it/s]
+Loading weights:  19%|█▊        | 154/824 [00:01<00:06, 99.72it/s]
+Loading weights:  20%|██        | 165/824 [00:01<00:07, 86.76it/s]
+Loading weights:  21%|██        | 174/824 [00:01<00:09, 71.79it/s]
+Loading weights:  22%|██▏       | 182/824 [00:01<00:08, 72.66it/s]
+Loading weights:  25%|██▍       | 204/824 [00:02<00:05, 104.44it/s]
+Loading weights:  28%|██▊       | 233/824 [00:02<00:04, 147.58it/s]
+Loading weights:  30%|███       | 251/824 [00:02<00:03, 154.87it/s]
+Loading weights:  35%|███▌      | 290/824 [00:02<00:02, 212.70it/s]
+Loading weights:  40%|███▉      | 328/824 [00:02<00:02, 246.89it/s]
+Loading weights:  43%|████▎     | 354/824 [00:02<00:02, 227.50it/s]
+Loading weights: 100%|██████████| 824/824 [00:02<00:00, 314.36it/s]
+motion s0 100/3000 loss 0.948 ans 7.826 teacher_ok 99.0 longest_target 126 57s
+motion s0 200/3000 loss 0.614 ans 0.468 teacher_ok 98.8 longest_target 126 115s
+motion s0 300/3000 loss 0.574 ans 0.563 teacher_ok 98.8 longest_target 126 173s
+motion s0 400/3000 loss 0.574 ans 0.476 teacher_ok 98.9 longest_target 126 230s
+motion s0 500/3000 loss 0.559 ans 0.513 teacher_ok 98.5 longest_target 126 287s
+motion s0 600/3000 loss 0.560 ans 0.502 teacher_ok 98.7 longest_target 126 345s
+motion s0 700/3000 loss 0.542 ans 0.473 teacher_ok 98.9 longest_target 126 403s
+motion s0 800/3000 loss 0.542 ans 0.453 teacher_ok 99.0 longest_target 126 461s
+motion s0 900/3000 loss 0.535 ans 0.461 teacher_ok 99.1 longest_target 126 518s
+motion s0 1000/3000 loss 0.536 ans 0.452 teacher_ok 99.2 longest_target 126 576s
+motion s0 1100/3000 loss 0.537 ans 0.483 teacher_ok 99.1 longest_target 126 635s
+motion s0 1200/3000 loss 0.519 ans 0.451 teacher_ok 99.1 longest_target 126 693s
+motion s0 1300/3000 loss 0.521 ans 0.373 teacher_ok 99.1 longest_target 126 751s
+motion s0 1400/3000 loss 0.511 ans 0.472 teacher_ok 99.2 longest_target 126 810s
+motion s0 1500/3000 loss 0.515 ans 0.434 teacher_ok 99.1 longest_target 126 868s
+motion s0 1600/3000 loss 0.509 ans 0.448 teacher_ok 99.2 longest_target 126 927s
+motion s0 1700/3000 loss 0.505 ans 0.342 teacher_ok 99.2 longest_target 126 985s
+motion s0 1800/3000 loss 0.500 ans 0.375 teacher_ok 99.2 longest_target 126 1044s
+motion s0 1900/3000 loss 0.498 ans 0.412 teacher_ok 99.2 longest_target 126 1102s
+motion s0 2000/3000 loss 0.494 ans 0.396 teacher_ok 99.2 longest_target 126 1161s
+motion s0 2100/3000 loss 0.491 ans 0.424 teacher_ok 99.1 longest_target 126 1219s
+motion s0 2200/3000 loss 0.488 ans 0.380 teacher_ok 99.1 longest_target 126 1277s
+motion s0 2300/3000 loss 0.489 ans 0.426 teacher_ok 99.1 longest_target 126 1335s
+motion s0 2400/3000 loss 0.479 ans 0.338 teacher_ok 99.1 longest_target 126 1392s
+motion s0 2500/3000 loss 0.485 ans 0.372 teacher_ok 99.1 longest_target 126 1450s
+motion s0 2600/3000 loss 0.483 ans 0.419 teacher_ok 99.1 longest_target 126 1508s
+motion s0 2700/3000 loss 0.476 ans 0.361 teacher_ok 99.1 longest_target 126 1566s
+motion s0 2800/3000 loss 0.483 ans 0.409 teacher_ok 99.2 longest_target 126 1623s
+motion s0 2900/3000 loss 0.479 ans 0.377 teacher_ok 99.1 longest_target 126 1680s
+motion s0 3000/3000 loss 0.474 ans 0.402 teacher_ok 99.2 longest_target 126 1737s
+cache check: argmax agreement 92.2%, logit difference median 0.250 max 1.125
+WARNING: cached decoding differs from full recomputation; evaluating without the cache (slow)
+eval eval9 0/600 1740s gpu 7.7 GB

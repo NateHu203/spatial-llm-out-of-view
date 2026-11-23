@@ -1,0 +1,65 @@
+﻿..\.venv\Scripts\python.exe : 
+At line:1 char:455
++ ... WD\..\src"; ..\.venv\Scripts\python.exe ..\src\distill.py --target re ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Loading weights:   0%|          | 0/824 [00:00<?, ?it/s]
+Loading weights:   1%|▏         | 12/824 [00:00<00:07, 107.83it/s]
+Loading weights:   3%|▎         | 23/824 [00:00<00:14, 54.93it/s] 
+Loading weights:   4%|▍         | 34/824 [00:00<00:12, 63.48it/s]
+Loading weights:   6%|▋         | 52/824 [00:00<00:08, 86.77it/s]
+Loading weights:   9%|▊         | 71/824 [00:00<00:06, 108.40it/s]
+Loading weights:  10%|█         | 83/824 [00:00<00:07, 96.61it/s] 
+Loading weights:  11%|█▏        | 94/824 [00:01<00:08, 90.66it/s]
+Loading weights:  13%|█▎        | 104/824 [00:01<00:08, 85.44it/s]
+Loading weights:  15%|█▌        | 124/824 [00:01<00:06, 112.93it/s]
+Loading weights:  17%|█▋        | 137/824 [00:01<00:08, 78.41it/s] 
+Loading weights:  19%|█▊        | 153/824 [00:01<00:07, 94.04it/s]
+Loading weights:  20%|██        | 165/824 [00:01<00:07, 92.74it/s]
+Loading weights:  21%|██▏       | 176/824 [00:01<00:07, 91.14it/s]
+Loading weights:  23%|██▎       | 187/824 [00:02<00:07, 82.59it/s]
+Loading weights:  26%|██▌       | 211/824 [00:02<00:05, 117.40it/s]
+Loading weights:  28%|██▊       | 231/824 [00:02<00:04, 136.54it/s]
+Loading weights:  30%|███       | 251/824 [00:02<00:03, 148.97it/s]
+Loading weights:  33%|███▎      | 268/824 [00:02<00:03, 154.38it/s]
+Loading weights:  35%|███▌      | 291/824 [00:02<00:03, 174.56it/s]
+Loading weights:  41%|████      | 335/824 [00:02<00:01, 248.65it/s]
+Loading weights:  44%|████▍     | 362/824 [00:02<00:01, 248.67it/s]
+Loading weights: 100%|██████████| 824/824 [00:02<00:00, 286.94it/s]
+record s0 100/3000 loss 0.789 ans 8.974 teacher_ok 99.0 longest_target 277 67s
+record s0 200/3000 loss 0.510 ans 0.476 teacher_ok 98.8 longest_target 277 133s
+record s0 300/3000 loss 0.471 ans 0.569 teacher_ok 98.8 longest_target 277 199s
+record s0 400/3000 loss 0.442 ans 0.480 teacher_ok 98.9 longest_target 277 266s
+record s0 500/3000 loss 0.439 ans 0.335 teacher_ok 98.5 longest_target 277 333s
+record s0 600/3000 loss 0.434 ans 0.256 teacher_ok 98.7 longest_target 277 399s
+record s0 700/3000 loss 0.416 ans 0.258 teacher_ok 98.9 longest_target 277 466s
+record s0 800/3000 loss 0.399 ans 0.267 teacher_ok 99.0 longest_target 277 532s
+record s0 900/3000 loss 0.394 ans 0.249 teacher_ok 99.1 longest_target 277 599s
+record s0 1000/3000 loss 0.410 ans 0.245 teacher_ok 99.2 longest_target 277 666s
+record s0 1100/3000 loss 0.406 ans 0.209 teacher_ok 99.1 longest_target 277 732s
+record s0 1200/3000 loss 0.389 ans 0.196 teacher_ok 99.1 longest_target 277 798s
+record s0 1300/3000 loss 0.391 ans 0.221 teacher_ok 99.1 longest_target 277 864s
+record s0 1400/3000 loss 0.384 ans 0.243 teacher_ok 99.2 longest_target 277 931s
+record s0 1500/3000 loss 0.394 ans 0.187 teacher_ok 99.1 longest_target 277 997s
+record s0 1600/3000 loss 0.369 ans 0.238 teacher_ok 99.2 longest_target 277 1063s
+record s0 1700/3000 loss 0.372 ans 0.155 teacher_ok 99.2 longest_target 277 1130s
+record s0 1800/3000 loss 0.370 ans 0.189 teacher_ok 99.2 longest_target 277 1196s
+record s0 1900/3000 loss 0.371 ans 0.219 teacher_ok 99.2 longest_target 277 1262s
+record s0 2000/3000 loss 0.369 ans 0.166 teacher_ok 99.2 longest_target 277 1329s
+record s0 2100/3000 loss 0.374 ans 0.186 teacher_ok 99.1 longest_target 277 1395s
+record s0 2200/3000 loss 0.366 ans 0.198 teacher_ok 99.1 longest_target 277 1461s
+record s0 2300/3000 loss 0.351 ans 0.239 teacher_ok 99.1 longest_target 277 1528s
+record s0 2400/3000 loss 0.349 ans 0.184 teacher_ok 99.1 longest_target 277 1594s
+record s0 2500/3000 loss 0.368 ans 0.196 teacher_ok 99.1 longest_target 277 1660s
+record s0 2600/3000 loss 0.344 ans 0.255 teacher_ok 99.1 longest_target 277 1727s
+record s0 2700/3000 loss 0.348 ans 0.190 teacher_ok 99.1 longest_target 277 1793s
+record s0 2800/3000 loss 0.361 ans 0.226 teacher_ok 99.2 longest_target 277 1860s
+record s0 2900/3000 loss 0.355 ans 0.221 teacher_ok 99.1 longest_target 277 1925s
+record s0 3000/3000 loss 0.354 ans 0.200 teacher_ok 99.2 longest_target 277 1992s
+cache check: argmax agreement 89.8%, logit difference median 0.250 max 0.750
+eval eval9 0/600 1994s
+eval eval9 50/600 2442s
+eval eval9 100/600 2888s
+eval eval9 150/600 3356s

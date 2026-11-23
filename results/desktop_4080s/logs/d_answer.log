@@ -1,0 +1,70 @@
+﻿..\.venv\Scripts\python.exe : 
+At line:1 char:746
++ ... DE -eq 0) { ..\.venv\Scripts\python.exe ..\src\distill.py --target an ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Loading weights:   0%|          | 0/824 [00:00<?, ?it/s]
+Loading weights:   1%|▏         | 11/824 [00:00<00:07, 105.33it/s]
+Loading weights:   3%|▎         | 22/824 [00:00<00:12, 63.26it/s] 
+Loading weights:   5%|▍         | 40/824 [00:00<00:07, 99.72it/s]
+Loading weights:   6%|▋         | 52/824 [00:00<00:08, 87.15it/s]
+Loading weights:   8%|▊         | 62/824 [00:00<00:09, 79.03it/s]
+Loading weights:   9%|▊         | 71/824 [00:00<00:09, 79.23it/s]
+Loading weights:  10%|▉         | 81/824 [00:00<00:08, 82.62it/s]
+Loading weights:  11%|█▏        | 93/824 [00:01<00:08, 90.68it/s]
+Loading weights:  12%|█▎        | 103/824 [00:01<00:07, 90.96it/s]
+Loading weights:  14%|█▎        | 113/824 [00:01<00:08, 84.98it/s]
+Loading weights:  15%|█▍        | 122/824 [00:01<00:09, 75.42it/s]
+Loading weights:  16%|█▌        | 130/824 [00:01<00:11, 62.91it/s]
+Loading weights:  19%|█▉        | 159/824 [00:01<00:06, 110.41it/s]
+Loading weights:  22%|██▏       | 183/824 [00:01<00:04, 140.45it/s]
+Loading weights:  24%|██▍       | 199/824 [00:01<00:04, 142.04it/s]
+Loading weights:  26%|██▋       | 217/824 [00:02<00:03, 151.91it/s]
+Loading weights:  29%|██▉       | 241/824 [00:02<00:03, 170.40it/s]
+Loading weights:  84%|████████▎ | 689/824 [00:02<00:00, 1346.47it/s]
+Loading weights: 100%|██████████| 824/824 [00:02<00:00, 356.14it/s] 
+answer s0 100/3000 loss 0.750 ans 0.750 teacher_ok 99.0 44s
+answer s0 200/3000 loss 0.730 ans 0.730 teacher_ok 98.8 88s
+answer s0 300/3000 loss 0.782 ans 0.782 teacher_ok 98.8 132s
+answer s0 400/3000 loss 0.683 ans 0.683 teacher_ok 98.9 176s
+answer s0 500/3000 loss 0.730 ans 0.730 teacher_ok 98.5 220s
+answer s0 600/3000 loss 0.795 ans 0.795 teacher_ok 98.7 265s
+answer s0 700/3000 loss 0.722 ans 0.722 teacher_ok 98.9 312s
+answer s0 800/3000 loss 0.604 ans 0.604 teacher_ok 99.0 360s
+answer s0 900/3000 loss 0.658 ans 0.658 teacher_ok 99.1 406s
+answer s0 1000/3000 loss 0.681 ans 0.681 teacher_ok 99.2 452s
+answer s0 1100/3000 loss 0.655 ans 0.655 teacher_ok 99.1 498s
+answer s0 1200/3000 loss 0.604 ans 0.604 teacher_ok 99.1 545s
+answer s0 1300/3000 loss 0.576 ans 0.576 teacher_ok 99.1 591s
+answer s0 1400/3000 loss 0.725 ans 0.725 teacher_ok 99.2 637s
+answer s0 1500/3000 loss 0.680 ans 0.680 teacher_ok 99.1 689s
+answer s0 1600/3000 loss 0.598 ans 0.598 teacher_ok 99.2 746s
+answer s0 1700/3000 loss 0.443 ans 0.443 teacher_ok 99.2 804s
+answer s0 1800/3000 loss 0.570 ans 0.570 teacher_ok 99.2 862s
+answer s0 1900/3000 loss 0.580 ans 0.580 teacher_ok 99.2 920s
+answer s0 2000/3000 loss 0.472 ans 0.472 teacher_ok 99.2 975s
+answer s0 2100/3000 loss 0.604 ans 0.604 teacher_ok 99.1 1030s
+answer s0 2200/3000 loss 0.566 ans 0.566 teacher_ok 99.1 1086s
+answer s0 2300/3000 loss 0.660 ans 0.660 teacher_ok 99.1 1141s
+answer s0 2400/3000 loss 0.457 ans 0.457 teacher_ok 99.1 1197s
+answer s0 2500/3000 loss 0.559 ans 0.559 teacher_ok 99.1 1253s
+answer s0 2600/3000 loss 0.618 ans 0.618 teacher_ok 99.1 1309s
+answer s0 2700/3000 loss 0.512 ans 0.512 teacher_ok 99.1 1365s
+answer s0 2800/3000 loss 0.547 ans 0.547 teacher_ok 99.2 1420s
+answer s0 2900/3000 loss 0.524 ans 0.524 teacher_ok 99.1 1476s
+answer s0 3000/3000 loss 0.652 ans 0.652 teacher_ok 99.2 1532s
+eval eval9 0/600 1532s
+eval eval9 50/600 1560s
+eval eval9 100/600 1588s
+eval eval9 150/600 1616s
+eval eval9 200/600 1644s
+eval eval9 250/600 1673s
+eval eval9 300/600 1702s
+eval eval9 350/600 1730s
+eval eval9 400/600 1759s
+eval eval9 450/600 1788s
+eval eval9 500/600 1817s
+eval eval9 550/600 1846s
+{"arm": "distill_answer_orc", "seed": 0, "split": "eval9", "train_split": "train3,train8,train9", "n_train": 3000, "init_lora": "w1k_s0.pt", "train_sec": 1532, "summary": {"model": {"acc": 22.2, "ci": [17.3, 27.2], "n": 695}, "teacher": {"acc": 97.8, "ci": [96.1, 99.2], "n": 695}, "plain_acc": 76.5, "agree_teacher": 76.1}}

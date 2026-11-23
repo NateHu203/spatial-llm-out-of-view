@@ -1,0 +1,51 @@
+
+$ <repo>\.venv\Scripts\python.exe <repo>\src\distill.py --target state --seed 2 --save_lora d_state_s2.pt --out <repo>\workspace\res_d_state_s2.jsonl --resume
+Loading weights:   0%|          | 0/824 [00:00<?, ?it/s]Loading weights:   2%|▏         | 14/824 [00:00<00:07, 102.16it/s]Loading weights:   3%|▎         | 26/824 [00:00<00:07, 101.52it/s]Loading weights:   6%|▌         | 49/824 [00:00<00:05, 133.14it/s]Loading weights:   8%|▊         | 63/824 [00:00<00:06, 112.99it/s]Loading weights:   9%|▉         | 75/824 [00:00<00:08, 88.57it/s] Loading weights:  10%|█         | 85/824 [00:00<00:10, 73.81it/s]Loading weights:  12%|█▏        | 102/824 [00:01<00:08, 87.28it/s]Loading weights:  14%|█▎        | 112/824 [00:01<00:10, 65.79it/s]Loading weights:  15%|█▍        | 122/824 [00:01<00:09, 71.95it/s]Loading weights:  16%|█▌        | 131/824 [00:01<00:12, 57.45it/s]Loading weights:  18%|█▊        | 147/824 [00:01<00:08, 76.03it/s]Loading weights:  19%|█▉        | 157/824 [00:02<00:10, 66.00it/s]Loading weights:  20%|██        | 167/824 [00:02<00:09, 72.01it/s]Loading weights:  22%|██▏       | 183/824 [00:02<00:07, 90.83it/s]Loading weights:  26%|██▋       | 217/824 [00:02<00:04, 149.04it/s]Loading weights:  29%|██▉       | 243/824 [00:02<00:03, 171.37it/s]Loading weights:  32%|███▏      | 263/824 [00:02<00:03, 159.68it/s]Loading weights:  34%|███▍      | 281/824 [00:02<00:03, 141.69it/s]Loading weights: 100%|██████████| 824/824 [00:02<00:00, 297.47it/s]
+state s2 100/3000 loss 1.514 ans 7.296 teacher_ok 99.0 longest_target 44 peak 11.0 GB 52s
+state s2 200/3000 loss 0.772 ans 0.364 teacher_ok 99.5 longest_target 44 peak 11.0 GB 103s
+state s2 300/3000 loss 0.725 ans 0.253 teacher_ok 99.2 longest_target 44 peak 11.0 GB 154s
+state s2 400/3000 loss 0.715 ans 0.215 teacher_ok 99.3 longest_target 44 peak 11.0 GB 205s
+state s2 500/3000 loss 0.699 ans 0.235 teacher_ok 99.3 longest_target 44 peak 11.0 GB 257s
+state s2 600/3000 loss 0.691 ans 0.249 teacher_ok 99.3 longest_target 44 peak 11.0 GB 309s
+state s2 700/3000 loss 0.680 ans 0.222 teacher_ok 99.2 longest_target 44 peak 11.0 GB 360s
+state s2 800/3000 loss 0.672 ans 0.177 teacher_ok 99.2 longest_target 44 peak 11.0 GB 411s
+state s2 900/3000 loss 0.654 ans 0.163 teacher_ok 99.3 longest_target 44 peak 11.0 GB 462s
+state s2 1000/3000 loss 0.645 ans 0.191 teacher_ok 99.3 longest_target 44 peak 11.0 GB 513s
+state s2 1100/3000 loss 0.644 ans 0.234 teacher_ok 99.3 longest_target 44 peak 11.0 GB 565s
+state s2 1200/3000 loss 0.641 ans 0.196 teacher_ok 99.2 longest_target 44 peak 11.0 GB 616s
+state s2 1300/3000 loss 0.633 ans 0.201 teacher_ok 99.2 longest_target 44 peak 11.0 GB 667s
+state s2 1400/3000 loss 0.634 ans 0.194 teacher_ok 99.1 longest_target 44 peak 11.0 GB 718s
+state s2 1500/3000 loss 0.619 ans 0.186 teacher_ok 99.1 longest_target 44 peak 11.0 GB 770s
+state s2 1600/3000 loss 0.622 ans 0.196 teacher_ok 99.1 longest_target 44 peak 11.0 GB 821s
+state s2 1700/3000 loss 0.620 ans 0.199 teacher_ok 99.2 longest_target 44 peak 11.0 GB 872s
+state s2 1800/3000 loss 0.604 ans 0.165 teacher_ok 99.2 longest_target 44 peak 11.0 GB 923s
+state s2 1900/3000 loss 0.610 ans 0.188 teacher_ok 99.1 longest_target 44 peak 11.0 GB 974s
+state s2 2000/3000 loss 0.605 ans 0.157 teacher_ok 99.1 longest_target 44 peak 11.0 GB 1025s
+state s2 2100/3000 loss 0.591 ans 0.191 teacher_ok 99.2 longest_target 44 peak 11.0 GB 1077s
+state s2 2200/3000 loss 0.600 ans 0.148 teacher_ok 99.2 longest_target 44 peak 11.0 GB 1128s
+state s2 2300/3000 loss 0.594 ans 0.169 teacher_ok 99.2 longest_target 44 peak 11.0 GB 1179s
+state s2 2400/3000 loss 0.584 ans 0.183 teacher_ok 99.2 longest_target 44 peak 11.0 GB 1230s
+state s2 2500/3000 loss 0.588 ans 0.150 teacher_ok 99.2 longest_target 44 peak 11.0 GB 1281s
+state s2 2600/3000 loss 0.580 ans 0.169 teacher_ok 99.2 longest_target 44 peak 11.0 GB 1332s
+state s2 2700/3000 loss 0.584 ans 0.187 teacher_ok 99.1 longest_target 44 peak 11.0 GB 1383s
+state s2 2800/3000 loss 0.577 ans 0.124 teacher_ok 99.2 longest_target 44 peak 11.0 GB 1435s
+state s2 2900/3000 loss 0.575 ans 0.214 teacher_ok 99.2 longest_target 44 peak 11.0 GB 1486s
+state s2 3000/3000 loss 0.577 ans 0.160 teacher_ok 99.2 longest_target 44 peak 11.0 GB 1537s
+cache check: argmax agreement 91.4%, logit difference median 0.188 max 0.781
+eval eval9 0/600 1539s gpu 7.7 GB
+eval eval9 50/600 1650s gpu 8.0 GB
+eval eval9 100/600 1772s gpu 8.0 GB
+eval eval9 150/600 1894s gpu 8.0 GB
+eval eval9 200/600 2017s gpu 8.0 GB
+eval eval9 250/600 2139s gpu 8.0 GB
+eval eval9 300/600 2262s gpu 8.0 GB
+eval eval9 350/600 2385s gpu 8.0 GB
+eval eval9 400/600 2505s gpu 8.0 GB
+eval eval9 450/600 2614s gpu 8.0 GB
+eval eval9 500/600 2723s gpu 8.0 GB
+eval eval9 550/600 2831s gpu 8.0 GB
+{"arm": "distill_state_orc", "seed": 2, "split": "eval9", "train_split": "train3,train8,train9", "n_train": 3000, "init_lora": "w1k_s0.pt", "train_sec": 1537, "summary": {"model": {"acc": 22.0, "ci": [17.8, 26.9], "n": 695}, "teacher": {"acc": 97.8, "ci": [96.1, 99.2], "n": 695}, "plain_acc": 76.5, "agree_teacher": 76.4, "written": {"acc": 24.3, "ci": [19.8, 28.8], "n": 695}, "no_answer": 0, "malformed": 0, "err_med_m": 0.993, "err_p90_m": 2.2, "follows_written": 94.3}}
+  wrote: 'blue (+4.04, +0.30) 4.05 m; red (+2.35, +2.33) 3.29 m. Answer:'
+  wrote: 'blue (+4.06, +0.30) 4.07 m; red (+2.47, +2.30) 3.36 m. Answer:'
+  wrote: 'blue (+4.00, -0.61) 4.05 m; red (+2.60, +1.63) 3.05 m. Answer:'
+  wrote: 'blue (+4.16, -0.71) 4.22 m; red (+2.60, +1.75) 3.10 m. Answer:'

@@ -1,0 +1,26 @@
+{
+ "eval8": {
+  "vis_acc": 99.9,
+  "vis_recall": 99.9,
+  "vis_precision": 99.9,
+  "pos_err_med_m": 0.104,
+  "pos_err_p90_m": 0.241,
+  "B4_est_all": 85.0,
+  "B4_est_differ": 78.9,
+  "B4_est_both": 59.5,
+  "B4_orc_all": 98.7,
+  "B4_orc_differ": 98.6,
+  "B4_orc_both": 97.2
+ },
+ "eval3": {
+  "vis_acc": 99.9,
+  "vis_recall": 99.9,
+  "vis_precision": 99.9,
+  "pos_err_med_m": 0.109,
+  "pos_err_p90_m": 0.247,
+  "B4_est_all": 90.6,
+  "B4_est_hiddenSW": 79.0,
+  "B4_orc_all": 99.1,
+  "B4_orc_hiddenSW": 95.8
+ }
+}

@@ -1,0 +1,42 @@
+﻿..\.venv\Scripts\python.exe : 
+At line:1 char:455
++ ... WD\..\src"; ..\.venv\Scripts\python.exe ..\src\distill.py --target mo ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Loading weights:   0%|          | 0/824 [00:00<?, ?it/s]
+Loading weights:   1%|▏         | 12/824 [00:00<00:09, 85.22it/s]
+Loading weights:   3%|▎         | 26/824 [00:00<00:07, 112.12it/s]
+Loading weights:   5%|▍         | 38/824 [00:00<00:07, 107.83it/s]
+Loading weights:   6%|▌         | 50/824 [00:00<00:07, 101.98it/s]
+Loading weights:   7%|▋         | 61/824 [00:00<00:09, 78.35it/s] 
+Loading weights:   9%|▉         | 74/824 [00:00<00:09, 83.22it/s]
+Loading weights:  11%|█         | 91/824 [00:00<00:07, 99.90it/s]
+Loading weights:  12%|█▏        | 102/824 [00:01<00:07, 101.64it/s]
+Loading weights:  14%|█▎        | 113/824 [00:01<00:08, 81.49it/s] 
+Loading weights:  15%|█▍        | 122/824 [00:01<00:09, 70.60it/s]
+Loading weights:  16%|█▌        | 130/824 [00:01<00:09, 69.66it/s]
+Loading weights:  18%|█▊        | 147/824 [00:01<00:07, 90.57it/s]
+Loading weights:  20%|█▉        | 163/824 [00:01<00:07, 93.65it/s]
+Loading weights:  21%|██        | 175/824 [00:01<00:07, 91.65it/s]
+Loading weights:  22%|██▏       | 185/824 [00:02<00:07, 89.93it/s]
+Loading weights:  26%|██▌       | 213/824 [00:02<00:04, 134.64it/s]
+Loading weights:  28%|██▊       | 233/824 [00:02<00:04, 147.30it/s]
+Loading weights:  31%|███       | 253/824 [00:02<00:03, 159.51it/s]
+Loading weights:  33%|███▎      | 270/824 [00:02<00:03, 154.75it/s]
+Loading weights:  37%|███▋      | 301/824 [00:02<00:02, 195.19it/s]
+Loading weights:  39%|███▉      | 322/824 [00:02<00:02, 175.33it/s]
+Loading weights:  41%|████▏     | 341/824 [00:02<00:02, 170.01it/s]
+Loading weights: 100%|██████████| 824/824 [00:02<00:00, 284.00it/s]
+resumed training from d_motion_s0.pt.ckpt at step 3000
+cache check: argmax agreement 92.2%, logit difference median 0.250 max 1.125
+resumed evaluation: 15 scenes already done
+eval eval9 50/600 195s gpu 8.3 GB
+eval eval9 100/600 472s gpu 8.2 GB
+eval eval9 150/600 764s gpu 8.2 GB
+eval eval9 200/600 1038s gpu 8.2 GB
+eval eval9 250/600 1316s gpu 8.2 GB
+eval eval9 300/600 1591s gpu 8.2 GB
+eval eval9 350/600 1867s gpu 8.2 GB
+eval eval9 400/600 2144s gpu 8.2 GB
