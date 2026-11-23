@@ -66,7 +66,13 @@ def run():
             print(f'[{name}] start (attempt {attempt}) {time.strftime("%H:%M:%S")}', flush=True)
             with open(p['log'], 'a', encoding='utf-8') as log:
                 log.write(f'\n$ {" ".join(cmd)}\n'); log.flush()
-                code = subprocess.run(cmd, cwd=WORK, env=env, stdout=log, stderr=subprocess.STDOUT).returncode
+                proc = subprocess.Popen(cmd, cwd=WORK, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                                        text=True, encoding='utf-8', errors='replace')
+                for line in proc.stdout:   # the log file gets everything; the screen gets the progress lines
+                    log.write(line); log.flush()
+                    if line.startswith(('record ', 'state ', 'answer ', 'motion ', 'locate ', 'eval ', 'resumed', 'Traceback')):
+                        print('   ', line.rstrip(), flush=True)
+                code = proc.wait()
             if code == 0:
                 break
             print(f'[{name}] exit code {code}', flush=True)

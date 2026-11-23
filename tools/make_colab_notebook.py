@@ -65,6 +65,29 @@ def backup():
 
 
 restore()
+
+# while a run is going: copy its checkpoint, loss curve and tested scenes to Drive every 10 minutes,
+# so a disconnect in the middle of a run loses at most 10 minutes
+import glob, shutil, threading, time
+LIVE = '/content/drive/MyDrive/spatial_llm_distill_live'
+if USE_DRIVE:
+    os.makedirs(LIVE, exist_ok=True)
+    for f in glob.glob(LIVE + '/*'):
+        if not f.endswith('.tmp') and not os.path.exists('/content/workspace/' + os.path.basename(f)):
+            shutil.copy(f, '/content/workspace'); print('continuing from', os.path.basename(f))
+
+    def keep_live():
+        while True:
+            time.sleep(600)
+            for pat in ('*.ckpt', '*.partial', '*_train.jsonl'):
+                for f in glob.glob('/content/workspace/' + pat):
+                    try:
+                        shutil.copy(f, LIVE + '/' + os.path.basename(f) + '.tmp')
+                        os.replace(LIVE + '/' + os.path.basename(f) + '.tmp', LIVE + '/' + os.path.basename(f))
+                    except OSError as e:
+                        print('live copy failed:', e)
+    if not any(t.name == 'keep_live' for t in threading.enumerate()):
+        threading.Thread(target=keep_live, name='keep_live', daemon=True).start()
 '''),
     md('''
 ## 1 · What the student needs first
