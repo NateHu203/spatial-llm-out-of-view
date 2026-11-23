@@ -13,7 +13,7 @@ Everything is written under the workspace (default <repo>/workspace, or $SPATIAL
     d_<name>.pt, d_<name>.pt.ckpt  the trained LoRA and the rolling training checkpoint
     logs/distill/<name>.log        the full output of the run
 """
-import json, os, subprocess, sys, time
+import json, os, shutil, subprocess, sys, threading, time
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
@@ -51,7 +51,36 @@ def done(name):
     return len([l for l in open(p['out'], encoding='utf-8') if l.strip()]) >= n_splits
 
 
+# A second copy of the unfinished run's state (checkpoint, loss curve, tested scenes) outside the machine, so a lost
+# Colab session costs at most CKPT_EVERY steps. $SPATIAL_LLM_LIVE names the folder; on Colab it is found by itself.
+CKPT_EVERY = '100'
+LIVE = os.environ.get('SPATIAL_LLM_LIVE') or '/content/drive/MyDrive/spatial_llm_distill_live'
+
+
+def keep_live(stop):
+    """every 30 s copy the files that changed; each is written under a temporary name first, so a copy is never half done"""
+    seen = {}
+    while True:
+        for pat in ('*.ckpt', '*.partial', '*_train.jsonl'):
+            for f in WORK.glob(pat):
+                try:
+                    m = f.stat().st_mtime
+                    if seen.get(f.name) != m and time.time() - m > 3:   # not while it is being written
+                        shutil.copy(f, Path(LIVE) / (f.name + '.tmp'))
+                        os.replace(Path(LIVE) / (f.name + '.tmp'), Path(LIVE) / f.name)
+                        seen[f.name] = m
+                except OSError as e:
+                    print(f'    live copy of {f.name} failed: {e}', flush=True)
+        if stop.is_set():
+            return
+        stop.wait(30)
+
+
 def run():
+    stop = threading.Event()
+    if os.path.isdir(LIVE):
+        print(f'unfinished runs are also copied to {LIVE}', flush=True)
+        threading.Thread(target=keep_live, args=(stop,), daemon=True).start()
     env = dict(os.environ, SPATIAL_LLM_WORK=str(WORK), PYTHONPATH=str(REPO / 'src'), PYTHONUNBUFFERED='1')
     only = sys.argv[2:]   # optional: run only these experiments
     for name, extra in QUEUE.items():
@@ -61,7 +90,8 @@ def run():
             print(f'[{name}] already finished', flush=True)
             continue
         p = paths(name); p['log'].parent.mkdir(parents=True, exist_ok=True)
-        cmd = [sys.executable, str(REPO / 'src' / 'distill.py'), *extra, '--save_lora', p['lora'].name, '--out', str(p['out']), '--resume']
+        cmd = [sys.executable, str(REPO / 'src' / 'distill.py'), *extra, '--save_lora', p['lora'].name, '--out', str(p['out']), '--resume',
+               '--ckpt_every', CKPT_EVERY]
         for attempt in (1, 2):   # one automatic retry: it continues from the checkpoint / the partial file
             print(f'[{name}] start (attempt {attempt}) {time.strftime("%H:%M:%S")}', flush=True)
             with open(p['log'], 'a', encoding='utf-8') as log:
