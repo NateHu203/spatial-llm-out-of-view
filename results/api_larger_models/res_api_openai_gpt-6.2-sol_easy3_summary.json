@@ -1,0 +1,38 @@
+{
+ "model": "openai/gpt-6.2-sol",
+ "backend": "openai",
+ "split": "easy3",
+ "scale": 1,
+ "label_frames": false,
+ "effort": "",
+ "summary": {
+  "all": {
+   "acc": 92.5,
+   "ci": [
+    85.0,
+    100.0
+   ],
+   "n": 40
+  },
+  "closer": {
+   "acc": 90.0,
+   "ci": [
+    75.0,
+    100.0
+   ],
+   "n": 20
+  },
+  "leftright": {
+   "acc": 95.0,
+   "ci": [
+    85.0,
+    100.0
+   ],
+   "n": 20
+  },
+  "no_answer": 0,
+  "picks_first_option": 52.5,
+  "tok_in": 22040,
+  "tok_out": 200
+ }
+}

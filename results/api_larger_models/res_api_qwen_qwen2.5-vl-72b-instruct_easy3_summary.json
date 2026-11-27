@@ -1,0 +1,38 @@
+{
+ "model": "qwen/qwen2.5-vl-72b-instruct",
+ "backend": "openai",
+ "split": "easy3",
+ "scale": 1,
+ "label_frames": false,
+ "effort": "",
+ "summary": {
+  "all": {
+   "acc": 75.2,
+   "ci": [
+    69.8,
+    80.2
+   ],
+   "n": 258
+  },
+  "closer": {
+   "acc": 65.9,
+   "ci": [
+    57.4,
+    73.6
+   ],
+   "n": 129
+  },
+  "leftright": {
+   "acc": 84.5,
+   "ci": [
+    78.3,
+    90.7
+   ],
+   "n": 129
+  },
+  "no_answer": 0,
+  "picks_first_option": 70.5,
+  "tok_in": 158670,
+  "tok_out": 516
+ }
+}

@@ -1,0 +1,103 @@
+{
+ "model": "qwen/qwen2.5-vl-72b-instruct",
+ "backend": "openai",
+ "split": "eval9",
+ "scale": 1,
+ "label_frames": false,
+ "effort": "",
+ "summary": {
+  "twin": {
+   "acc": 3.3,
+   "ci": [
+    1.5,
+    5.3
+   ],
+   "n": 695
+  },
+  "n_calls": 1390,
+  "plain_acc": 48.3,
+  "no_answer": 0,
+  "same_answer_both_twins": 90.1,
+  "follows_last_seen": 44.7,
+  "by_qtype": {
+   "closer": {
+    "acc": 3.4,
+    "ci": [
+     1.5,
+     5.8
+    ],
+    "n": 473
+   },
+   "leftright": {
+    "acc": 3.2,
+    "ci": [
+     0.5,
+     6.7
+    ],
+    "n": 222
+   }
+  },
+  "by_time": {
+   "7": {
+    "acc": 0.8,
+    "ci": [
+     0.0,
+     2.6
+    ],
+    "n": 118
+   },
+   "8": {
+    "acc": 4.3,
+    "ci": [
+     1.8,
+     7.5
+    ],
+    "n": 164
+   },
+   "9": {
+    "acc": 4.3,
+    "ci": [
+     1.6,
+     7.3
+    ],
+    "n": 188
+   },
+   "10": {
+    "acc": 3.1,
+    "ci": [
+     0.9,
+     5.5
+    ],
+    "n": 225
+   }
+  },
+  "by_mode": {
+   "stop": {
+    "acc": 2.7,
+    "ci": [
+     0.4,
+     5.9
+    ],
+    "n": 224
+   },
+   "reloc": {
+    "acc": 2.6,
+    "ci": [
+     0.5,
+     5.3
+    ],
+    "n": 194
+   },
+   "turn": {
+    "acc": 4.3,
+    "ci": [
+     1.4,
+     8.6
+    ],
+    "n": 277
+   }
+  },
+  "tok_in": 863378,
+  "tok_out": 2780
+ }
+}

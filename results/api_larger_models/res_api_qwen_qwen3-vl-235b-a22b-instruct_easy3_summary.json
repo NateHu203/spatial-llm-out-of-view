@@ -1,0 +1,38 @@
+{
+ "model": "qwen/qwen3-vl-235b-a22b-instruct",
+ "backend": "openai",
+ "split": "easy3",
+ "scale": 1,
+ "label_frames": false,
+ "effort": "",
+ "summary": {
+  "all": {
+   "acc": 84.1,
+   "ci": [
+    79.5,
+    88.8
+   ],
+   "n": 258
+  },
+  "closer": {
+   "acc": 83.7,
+   "ci": [
+    76.7,
+    89.9
+   ],
+   "n": 129
+  },
+  "leftright": {
+   "acc": 84.5,
+   "ci": [
+    78.3,
+    90.7
+   ],
+   "n": 129
+  },
+  "no_answer": 0,
+  "picks_first_option": 53.1,
+  "tok_in": 157122,
+  "tok_out": 516
+ }
+}
